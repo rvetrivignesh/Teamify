@@ -1,8 +1,13 @@
 import express from 'express';
 import User from '../models/User.js';
 import generateToken from '../utils/generateToken.js';
+import protect from '../middleware/Authenticate.js';
 
 const router = express.Router();
+
+router.get('/me', protect, async (req, res) => {
+    res.status(200).json(req.user);
+});
 
 router.post('/register', async (req, res) => {
     const { username, email, password } = req.body;
@@ -16,7 +21,7 @@ router.post('/register', async (req, res) => {
         }
         const newUser = await User.create({ username: username, email, password });
         const token = generateToken(newUser._id);
-        res.status(201).json({ 
+        res.status(201).json({
             "id": newUser._id,
             "username": newUser.username,
             "email": newUser.email,
@@ -30,20 +35,20 @@ router.post('/register', async (req, res) => {
 router.post('/login', async (req, res) => {
     const { email, password } = req.body;
     try {
-          if (!email || !password) {
+        if (!email || !password) {
             return res.status(400).json({ message: "All fields are required" });
-          }
-          const user = await User.findOne({ email });
-          if (!user || !(await user.matchPassword(password))) {
+        }
+        const user = await User.findOne({ email });
+        if (!user || !(await user.matchPassword(password))) {
             return res.status(401).json({ message: "Invalid credentials" });
-          }
-          const token = generateToken(user._id);
-          res.status(200).json({
+        }
+        const token = generateToken(user._id);
+        res.status(200).json({
             id: user._id,
             username: user.username,
             email: user.email,
             token: token,
-          });
+        });
     } catch (error) {
         res.status(500).json({ message: error.message });
     }
