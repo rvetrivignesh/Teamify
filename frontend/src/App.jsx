@@ -1,18 +1,47 @@
-import React from "react";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
+import { AuthProvider, useAuth } from "./context/AuthContext";
+import Navbar from "./components/Navbar/Navbar.jsx";
+import WelcomePage from "./components/WelcomePage/WelcomePage.jsx";
+import Login from "./components/Login/Login.jsx";
+import Signup from "./components/Signup/Signup.jsx";
+import './App.css';
 
-import Welcome from "./Welcome";
-import Login from "./login";
-import Signup from "./Signup";
+const AppContent = () => {
+  const { user, loading } = useAuth();
+
+  if (loading) {
+    return <div className="loading">Loading...</div>;
+  }
+
+  return (
+    <>
+      <Navbar />
+      <Routes>
+        <Route path="/" element={
+          user ? (
+            <div className="page">
+              <div className="card">
+                <h2>Welcome back, {user.username}!</h2>
+                <p>You are now logged in.</p>
+              </div>
+            </div>
+          ) : (
+            <WelcomePage />
+          )
+        } />
+        <Route path="/login" element={user ? <Navigate to="/" replace /> : <Login />} />
+        <Route path="/signup" element={user ? <Navigate to="/" replace /> : <Signup />} />
+      </Routes>
+    </>
+  );
+};
 
 const App = () => {
   return (
     <Router>
-      <Routes>
-        <Route path="/" element={<Welcome />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/signup" element={<Signup />} />
-      </Routes>
+      <AuthProvider>
+        <AppContent />
+      </AuthProvider>
     </Router>
   );
 };
