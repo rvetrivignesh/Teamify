@@ -1,20 +1,67 @@
-import React from "react";
+import React, { useState } from "react";
 import "./Signup.css";
+import { useAuth } from "../../context/AuthContext";
+import { useNavigate } from "react-router-dom";
 
 const Signup = () => {
+  const [formData, setFormData] = useState({
+    username: "",
+    email: "",
+    password: ""
+  });
+  const [error, setError] = useState("");
+  const { signup } = useAuth();
+  const navigate = useNavigate();
+
+  const handleChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setError("");
+    try {
+      await signup(formData.username, formData.email, formData.password);
+      navigate("/");
+    } catch (err) {
+      setError(err.message);
+    }
+  };
+
   return (
     <div className="page">
       <div className="card">
         <h2>Sign-up to Teamify</h2>
+        {error && <p style={{ color: 'red' }}>{error}</p>}
 
-        <input type="text" placeholder="Name" />
-        <input type="email" placeholder="Email" />
-        <input type="password" placeholder="Password" />
-        <input type="text" placeholder="Skills" />
-        <input type="text" placeholder="College" />
-        <input type="text" placeholder="Branch" />
+        <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', width: '100%', gap: '10px' }}>
+          <input
+            type="text"
+            placeholder="Name (Username)"
+            name="username"
+            value={formData.username}
+            onChange={handleChange}
+            required
+          />
+          <input
+            type="email"
+            placeholder="Email"
+            name="email"
+            value={formData.email}
+            onChange={handleChange}
+            required
+          />
+          <input
+            type="password"
+            placeholder="Password"
+            name="password"
+            value={formData.password}
+            onChange={handleChange}
+            required
+          />
 
-        <button className="primary">Create Account</button>
+          <button type="submit" className="primary">Create Account</button>
+        </form>
       </div>
     </div>
   );
