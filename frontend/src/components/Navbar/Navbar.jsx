@@ -1,6 +1,7 @@
 import './Navbar.css';
 import { Link } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
+import ThemeToggle from '../ThemeToggle/ThemeToggle';
 
 const Navbar = () => {
   const { user, logout } = useAuth();
@@ -10,7 +11,7 @@ const Navbar = () => {
       <Link to="/" style={{ textDecoration: 'none', color: 'inherit' }}>
         <h2>Teamify</h2>
       </Link>
-      <div style={{ display: 'flex', gap: '20px' }}>
+      <div style={{ display: 'flex', gap: '20px', alignItems: 'center' }}>
         {user ? (
           <>
             <span>Hello, {user.username}</span>
@@ -26,6 +27,7 @@ const Navbar = () => {
             </Link>
           </>
         )}
+        <ThemeToggle />
       </div>
     </div>
   )
