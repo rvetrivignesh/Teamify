@@ -1,12 +1,29 @@
-import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  Navigate,
+} from "react-router-dom";
 import { AuthProvider, useAuth } from "./context/AuthContext";
-import Navbar from "./components/Navbar/Navbar.jsx";
+import PageLayout from "./layouts/PageLayout";
 import WelcomePage from "./components/WelcomePage/WelcomePage.jsx";
-import Login from "./components/Login/Login.jsx";
-import Signup from "./components/Signup/Signup.jsx";
-import './App.css';
+import Login from "./components/Auth/Login.jsx";
+import Signup from "./components/Auth/Signup.jsx";
 
-const AppContent = () => {
+import "./App.css";
+
+const HomePage = ({ user }) => {
+  return (
+    <div className="page">
+      <div className="card">
+        <h2>Welcome back, {user.username}!</h2>
+        <p>You are now logged in.</p>
+      </div>
+    </div>
+  );
+};
+
+const AppRoutes = () => {
   const { user, loading } = useAuth();
 
   if (loading) {
@@ -14,25 +31,25 @@ const AppContent = () => {
   }
 
   return (
-    <>
-      <Navbar />
-      <Routes>
-        <Route path="/" element={
-          user ? (
-            <div className="page">
-              <div className="card">
-                <h2>Welcome back, {user.username}!</h2>
-                <p>You are now logged in.</p>
-              </div>
-            </div>
-          ) : (
-            <WelcomePage />
-          )
-        } />
-        <Route path="/login" element={user ? <Navigate to="/" replace /> : <Login />} />
-        <Route path="/signup" element={user ? <Navigate to="/" replace /> : <Signup />} />
-      </Routes>
-    </>
+    <Routes>
+      <Route element={<PageLayout />}>
+
+        <Route
+          path="/"
+          element={user ? <HomePage user={user} /> : <WelcomePage />}
+        />
+
+        <Route
+          path="/login"
+          element={user ? <Navigate to="/" replace /> : <Login />}
+        />
+
+        <Route
+          path="/signup"
+          element={user ? <Navigate to="/" replace /> : <Signup />}
+        />
+      </Route>
+    </Routes>
   );
 };
 
@@ -40,7 +57,7 @@ const App = () => {
   return (
     <Router>
       <AuthProvider>
-        <AppContent />
+        <AppRoutes />
       </AuthProvider>
     </Router>
   );
