@@ -1,5 +1,38 @@
+:root {
+  --bg-primary: #ffffff;
+  --bg-secondary: #f7f7f7;
+  --text-primary: #111111;
+  --text-secondary: #444444;
+  --border-color: #dddddd;
+  --border-dark: #111111;
+  --navbar-bg: #000000;
+  --navbar-text: #ffffff;
+  --button-bg: #111111;
+  --button-text: #ffffff;
+  --button-hover: rgba(17, 17, 17, 0.9);
+  --card-bg: #ffffff;
+  --transition: 0.3s ease;
+}
+
+[data-theme="dark"] {
+  --bg-primary: #1a1a1a;
+  --bg-secondary: #2d2d2d;
+  --text-primary: #ffffff;
+  --text-secondary: #b0b0b0;
+  --border-color: #444444;
+  --border-dark: #666666;
+  --navbar-bg: #0d0d0d;
+  --navbar-text: #ffffff;
+  --button-bg: #ffffff;
+  --button-text: #111111;
+  --button-hover: rgba(255, 255, 255, 0.9);
+  --card-bg: #2d2d2d;
+  --transition: 0.3s ease;
+}
+
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    transition: background-color var(--transition), color var(--transition), border-color var(--transition);
 }
