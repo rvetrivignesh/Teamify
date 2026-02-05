@@ -1,4 +1,4 @@
-import "./Login.css";
+import "./Auth.css";
 import { useState } from "react";
 import { useAuth } from "../../context/AuthContext";
 import { useNavigate } from "react-router-dom";
@@ -24,7 +24,7 @@ const Login = () => {
   return (
     <div className="page">
       <div className="card">
-        <h2 className="login-header">Login to Teamify</h2>
+        <h2 className="auth-header">Login to Teamify</h2>
         {error && <p style={{ color: 'red' }}>{error}</p>}
         <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', width: '100%', gap: '10px' }}>
           <input
