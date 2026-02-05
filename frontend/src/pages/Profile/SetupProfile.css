@@ -1,0 +1,146 @@
+
+.setup-profile-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 80vh;
+  padding: 2rem;
+}
+
+.setup-profile-card {
+  background-color: var(--card-bg);
+  padding: 2.5rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 600px;
+  border: 1px solid var(--border-color);
+}
+
+.setup-profile-card h2 {
+    margin-bottom: 2rem;
+    text-align: center;
+    color: var(--text-primary);
+    font-size: 1.8rem;
+}
+
+.form-group {
+  margin-bottom: 1.5rem;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: 500;
+  color: var(--text-secondary);
+}
+
+.form-group input,
+.form-group textarea {
+  width: 100%;
+  padding: 0.75rem;
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  font-size: 1rem;
+}
+
+.form-group textarea {
+    resize: vertical;
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+    outline: none;
+    border-color: var(--border-dark);
+}
+
+.input-group {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.add-btn {
+    padding: 0.75rem 1.5rem;
+    background-color: var(--button-bg);
+    color: var(--button-text);
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 600;
+}
+
+.add-btn:hover {
+    background-color: var(--button-hover);
+}
+
+.item-list {
+    list-style: none;
+    margin-top: 0.5rem;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+}
+
+.item-list li {
+    background-color: var(--bg-secondary);
+    border: 1px solid var(--border-color);
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.9rem;
+    color: var(--text-primary);
+}
+
+.remove-btn {
+    background: none;
+    border: none;
+    color: var(--text-secondary);
+    cursor: pointer;
+    font-size: 1.2rem;
+    line-height: 1;
+    padding: 0;
+}
+
+.remove-btn:hover {
+    color: #ff4d4d;
+}
+
+.submit-btn {
+    width: 100%;
+    padding: 1rem;
+    background-color: var(--button-bg);
+    color: var(--button-text);
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    margin-top: 1rem;
+}
+
+.submit-btn:hover {
+     background-color: var(--button-hover);
+}
+
+.message {
+    padding: 1rem;
+    border-radius: 8px;
+    margin-bottom: 1.5rem;
+    text-align: center;
+}
+
+.message.success {
+    background-color: rgba(76, 175, 80, 0.1);
+    color: #4caf50;
+    border: 1px solid #4caf50;
+}
+
+.message.error {
+    background-color: rgba(244, 67, 54, 0.1);
+    color: #f44336;
+    border: 1px solid #f44336;
+}
