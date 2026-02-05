@@ -20,7 +20,7 @@ const userProfileSchema = new mongoose.Schema(
       default: [],
     },
 
-    collaborations: {
+    projects: {
       type: [String],
       default: [],
     },
