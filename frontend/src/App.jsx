@@ -6,9 +6,10 @@ import {
 } from "react-router-dom";
 import { AuthProvider, useAuth } from "./context/AuthContext";
 import PageLayout from "./layouts/PageLayout";
-import WelcomePage from "./components/WelcomePage/WelcomePage.jsx";
+import WelcomePage from "./pages/WelcomePage/WelcomePage.jsx";
 import Login from "./components/Auth/Login.jsx";
 import Signup from "./components/Auth/Signup.jsx";
+import { ThemeProvider } from "./context/ThemeContext.jsx";
 
 import "./App.css";
 
@@ -57,7 +58,9 @@ const App = () => {
   return (
     <Router>
       <AuthProvider>
-        <AppRoutes />
+        <ThemeProvider>
+          <AppRoutes />
+        </ThemeProvider>
       </AuthProvider>
     </Router>
   );
