@@ -1,0 +1,301 @@
+.search-container {
+    display: flex;
+    gap: 16px;
+    margin-bottom: 32px;
+    background: var(--card-bg);
+    padding: 16px;
+    border-radius: 12px;
+    border: 1px solid var(--border-color);
+    flex-wrap: wrap;
+}
+
+.search-input-wrapper {
+    flex: 1;
+    min-width: 200px;
+}
+
+.search-select {
+    padding: 10px 16px;
+    border-radius: 8px;
+    border: 1px solid var(--border-color);
+    background-color: var(--bg-primary);
+    color: var(--text-primary);
+    font-size: 14px;
+}
+
+/* Project card adjustments for uniform size and responsive behavior */
+.project-card {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    height: 320px;
+    /* uniform card height */
+    overflow: hidden;
+    position: relative;
+}
+
+.project-title {
+    font-size: 18px;
+    margin-bottom: 6px;
+}
+
+.project-desc {
+    color: var(--text-secondary);
+    font-size: 14px;
+    line-height: 1.4;
+    /* clamp to 4 lines and hide overflow */
+    display: -webkit-box;
+    -webkit-line-clamp: 4;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.project-footer {
+    margin-top: auto;
+    /* push footer to bottom */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+}
+
+.project-actions {
+    display: flex;
+    gap: 8px;
+}
+
+/* Loading and Error States */
+.projects-loading {
+    margin: 50px auto;
+    text-align: center;
+}
+
+.projects-not-found {
+    text-align: center;
+}
+
+/* ProjectDetails Specific */
+.project-details-container {
+    /* base container */
+}
+
+.project-back-button {
+    margin-bottom: 24px;
+}
+
+.project-header-card {
+    margin-bottom: 32px;
+}
+
+.project-main-title {
+    margin-bottom: 16px;
+    font-size: 32px;
+}
+
+.project-description {
+    color: var(--text-secondary);
+    font-size: 18px;
+    margin-bottom: 24px;
+    line-height: 1.6;
+}
+
+.project-skills-section {
+    margin-bottom: 24px;
+}
+
+.project-skills-title {
+    margin-bottom: 8px;
+    color: var(--text-primary);
+}
+
+.project-meta {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 14px;
+    color: var(--text-secondary);
+}
+
+.project-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 24px;
+}
+
+.project-section-title {
+    font-size: 20px;
+}
+
+.project-tasks-list {
+    padding-left: 20px;
+}
+
+.project-task-item {
+    margin-bottom: 8px;
+}
+
+.project-task-item.completed {
+    color: green;
+}
+
+.project-task-status {
+    font-size: 12px;
+    color: #888;
+}
+
+.project-no-tasks {
+    color: #888;
+}
+
+.project-collaborators-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.project-collaborator-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.project-collaborator-info {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.project-collaborator-avatar {
+    width: 32px;
+    height: 32px;
+    background: #eee;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+}
+
+.project-collaborator-link {
+    text-decoration: none;
+    color: var(--text-primary);
+}
+
+.project-remove-button {
+    padding: 4px 8px;
+    font-size: 11px;
+}
+
+.project-no-collaborators {
+    color: #888;
+}
+
+.project-join-section {
+    margin-top: 32px;
+    border-top: 1px solid var(--border-color);
+    padding-top: 24px;
+}
+
+.project-join-title {
+    margin-bottom: 12px;
+}
+
+.project-join-success {
+    color: green;
+    background: #e6ffe6;
+    padding: 12px;
+    border-radius: 8px;
+}
+
+.project-join-form-textarea {
+    margin-bottom: 12px;
+}
+
+.project-join-submit {
+    width: 100%;
+}
+
+/* ExploreProjects Specific */
+.explore-projects-loading {
+    text-align: center;
+    margin-top: 40px;
+}
+
+.explore-projects-section {
+    margin-bottom: 40px;
+}
+
+.explore-section-title {
+    font-size: 20px;
+    margin-bottom: 16px;
+    font-weight: 600;
+}
+
+.explore-grid {
+    display: grid;
+    gap: 24px;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+}
+
+.people-card {
+    align-items: center;
+    text-align: center;
+}
+
+.people-avatar {
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    background: #ccc;
+    margin: 0 auto 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.people-email {
+    color: var(--text-secondary);
+    margin-bottom: 16px;
+}
+
+.explore-empty-state {
+    text-align: center;
+    color: var(--text-secondary);
+    margin-top: 40px;
+}
+
+/* CreateProject Specific */
+.create-project-container {
+    max-width: 600px;
+}
+
+.create-project-error {
+    color: red;
+    margin-bottom: 16px;
+}
+
+.create-project-textarea {
+    resize: vertical;
+}
+
+.create-project-button-group {
+    display: flex;
+    gap: 16px;
+    margin-top: 24px;
+}
+
+/* Ensure cards remain usable on small screens */
+@media (max-width: 600px) {
+    .project-card {
+        height: auto;
+        padding: 16px;
+    }
+
+    .grid-responsive>.card {
+        flex: 1 1 100%;
+        max-width: 100%;
+    }
+}
