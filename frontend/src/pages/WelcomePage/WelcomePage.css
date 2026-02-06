@@ -73,15 +73,17 @@
   background-color: var(--button-hover);
   transform: translateY(-2px);
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  color: var(--accent-color);
 }
 
 .signup {
-  background-color: var(--card-bg);
+  background-color: var(--bg-secondary);
   color: var(--text-primary);
   border: 2px solid var(--border-dark);
 }
 
 .signup:hover {
+  color: var(--accent-color);
   background-color: var(--bg-secondary);
   transform: translateY(-2px);
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);

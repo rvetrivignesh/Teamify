@@ -77,3 +77,7 @@
     display: flex;
     gap: 12px;
 }
+
+.explore-btn {
+    background-color: var(--card-bg);
+}
