@@ -2,7 +2,7 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import api from "../../services/api";
-import "./SetupProfile.css"; // We will create this file for specific styles if needed, or use inline/global
+import "./profile.css"; // We will create this file for specific styles if needed, or use inline/global
 
 const SetupProfile = () => {
   const navigate = useNavigate();

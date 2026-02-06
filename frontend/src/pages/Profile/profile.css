@@ -144,3 +144,15 @@
     color: #f44336;
     border: 1px solid #f44336;
 }
+
+.profile-title {
+    margin-bottom: 8px;
+}
+
+.profile-section {
+    margin-bottom: 24px;
+}
+
+.profile-section-title {
+    margin-bottom: 8px;
+}
