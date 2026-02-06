@@ -42,7 +42,7 @@ const Dashboard = ({ user }) => {
           <p className="text-muted">Ready to collaborate?</p>
         </div>
         <div className="action-buttons">
-          <Link to="/explore" className="btn btn-secondary">
+          <Link to="/explore" className="btn explore-btn">
             Explore Projects
           </Link>
           <Link to="/projects/create" className="btn btn-primary">
