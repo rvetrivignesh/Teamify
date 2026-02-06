@@ -1,0 +1,171 @@
+.request-details-container {
+    max-width: 600px;
+}
+
+.request-loading {
+    margin: 50px auto;
+    text-align: center;
+}
+
+.request-not-found {
+    text-align: center;
+}
+
+.request-card {
+    padding: 32px;
+}
+
+.request-info {
+    margin-bottom: 24px;
+    padding-bottom: 24px;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.request-from {
+    font-size: 18px;
+    margin-bottom: 8px;
+}
+
+.request-sender-link {
+    font-weight: bold;
+    color: var(--text-primary);
+}
+
+.request-project {
+    color: var(--text-secondary);
+}
+
+.request-message-section {
+    margin-bottom: 32px;
+}
+
+.request-message-title {
+    margin-bottom: 12px;
+}
+
+.request-message-text {
+    background: var(--bg-secondary);
+    padding: 16px;
+    border-radius: 8px;
+    font-style: italic;
+    color: var(--text-secondary);
+}
+
+.request-actions {
+    display: flex;
+    gap: 16px;
+}
+
+.request-action-approve {
+    flex: 1;
+    background-color: green;
+    border-color: green;
+}
+
+.request-action-reject {
+    flex: 1;
+}
+
+.request-status-pending {
+    display: none;
+}
+
+.request-status-display {
+    text-align: center;
+    padding: 16px;
+    border-radius: 8px;
+    font-weight: bold;
+}
+
+.request-status-accepted {
+    background-color: #e6ffe6;
+    color: green;
+}
+
+.request-status-rejected {
+    background-color: #ffe6e6;
+    color: red;
+}
+
+.request-back-button {
+    margin-bottom: 24px;
+}
+
+.requests-container {
+    max-width: 900px;
+}
+
+.requests-loading {
+    margin: 50px auto;
+    text-align: center;
+}
+
+.requests-tabs {
+    display: flex;
+    gap: 16px;
+    margin-bottom: 24px;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.requests-tab-button {
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+    border-bottom: none;
+}
+
+.received-request-card {
+    margin-bottom: 16px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.sent-request-card {
+    margin-bottom: 16px;
+}
+
+.request-title {
+    font-size: 16px;
+    margin-bottom: 4px;
+}
+
+.request-message {
+    color: var(--text-secondary);
+    font-style: italic;
+    margin-bottom: 8px;
+}
+
+.request-status {
+    font-size: 12px;
+    color: var(--text-secondary);
+}
+
+.request-status-text {
+    text-transform: capitalize;
+}
+
+.request-status-colored {
+    text-transform: capitalize;
+}
+
+.request-status-accepted {
+    color: green;
+}
+
+.request-status-rejected {
+    color: red;
+}
+
+.request-status-pending {
+    color: orange;
+}
+
+.request-actions {
+    display: flex;
+    gap: 8px;
+}
+
+.request-action-accept {
+    background: green;
+    color: white;
+}
