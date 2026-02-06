@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import api from "../../services/api";
-import "./UserProfile.css";
+import "./Profile.css";
 
 const UserProfile = () => {
   const { username } = useParams();

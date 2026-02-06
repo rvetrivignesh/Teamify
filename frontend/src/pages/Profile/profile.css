@@ -75,10 +75,8 @@
 
 .add-btn:hover {
     background-color: var(--button-hover);
-    /* Use theme-aware hover color */
     transform: translateY(-1px);
     box-shadow: var(--shadow-glow);
-    /* Add glow effect from theme */
 }
 
 .add-btn:active {
