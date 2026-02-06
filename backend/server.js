@@ -4,6 +4,10 @@ import cors from "cors";
 import connectDB from "./config/db.js";
 import authRoutes from "./routes/AuthRoutes.js";
 import profileRoutes from "./routes/ProfileRoutes.js";
+import projectRoutes from "./routes/ProjectRoutes.js";
+import collaborationRoutes from "./routes/CollaborationRoutes.js";
+import notificationRoutes from "./routes/NotificationRoutes.js";
+import searchRoutes from "./routes/SearchRoutes.js";
 
 dotenv.config();
 
@@ -25,6 +29,10 @@ app.use(express.json());
 
 app.use("/api/auth", authRoutes);
 app.use("/api/profile", profileRoutes);
+app.use("/api/projects", projectRoutes);
+app.use("/api/collaboration", collaborationRoutes);
+app.use("/api/notifications", notificationRoutes);
+app.use("/api/search", searchRoutes);
 
 app.get("/", (req, res) => {
   res.send("Hello from the backend server!");
