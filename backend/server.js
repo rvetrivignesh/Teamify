@@ -16,16 +16,21 @@ const PORT = process.env.PORT || 5000;
 
 app.use(
   cors({
-    origin: ["http://localhost:5173", "https://vetri.github.io/Teamify"],
+    origin: [
+      "http://localhost:5173",
+      "https://rvetrivignesh.github.io",
+    ],
     credentials: true,
-    methods: ["GET", "POST", "PUT", "DELETE"],
+    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
     allowedHeaders: ["Content-Type", "Authorization"],
-  }),
+  })
 );
 
-connectDB();
+app.options("*", cors());
 
 app.use(express.json());
+
+connectDB();
 
 app.use("/api/auth", authRoutes);
 app.use("/api/profile", profileRoutes);
@@ -39,5 +44,5 @@ app.get("/", (req, res) => {
 });
 
 app.listen(PORT, () => {
-  console.log(`Server is running on http://localhost:${PORT}`);
+  console.log(`Server running on port ${PORT}`);
 });
