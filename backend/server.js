@@ -1,7 +1,7 @@
 import express from "express";
 import dotenv from "dotenv";
-import cors from "cors";
 import connectDB from "./config/db.js";
+
 import authRoutes from "./routes/AuthRoutes.js";
 import profileRoutes from "./routes/ProfileRoutes.js";
 import projectRoutes from "./routes/ProjectRoutes.js";
@@ -14,19 +14,31 @@ dotenv.config();
 const app = express();
 const PORT = process.env.PORT || 5000;
 
-const corsOptions = {
-  origin: [
-    "http://localhost:5173",
-    "https://rvetrivignesh.github.io",
-    "https://rvetrivignesh.github.io/"
-  ],
-  credentials: true,
-  methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
-  allowedHeaders: ["Content-Type", "Authorization"],
-};
+app.use((req, res, next) => {
+  res.setHeader(
+    "Access-Control-Allow-Origin",
+    "https://rvetrivignesh.github.io"
+  );
+  res.setHeader(
+    "Access-Control-Allow-Methods",
+    "GET, POST, PUT, DELETE, OPTIONS"
+  );
+  res.setHeader(
+    "Access-Control-Allow-Headers",
+    "Content-Type, Authorization"
+  );
+  res.setHeader(
+    "Access-Control-Allow-Credentials",
+    "true"
+  );
 
-app.use(cors(corsOptions));
-app.options("*", cors(corsOptions));
+  // Handle preflight requests
+  if (req.method === "OPTIONS") {
+    return res.sendStatus(204);
+  }
+
+  next();
+});
 
 app.use(express.json());
 
@@ -40,7 +52,7 @@ app.use("/api/notifications", notificationRoutes);
 app.use("/api/search", searchRoutes);
 
 app.get("/", (req, res) => {
-  res.send("Hello from the backend server!");
+  res.status(200).send("Teamify backend is running");
 });
 
 app.listen(PORT, () => {
