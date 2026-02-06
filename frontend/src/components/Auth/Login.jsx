@@ -23,10 +23,10 @@ const Login = () => {
 
   return (
     <div className="page">
-      <div className="card">
+      <div className="login-card">
         <h2 className="auth-header">Login to Teamify</h2>
-        {error && <p style={{ color: 'red' }}>{error}</p>}
-        <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', width: '100%', gap: '10px' }}>
+        {error && <p className="error-text">{error}</p>}
+        <form onSubmit={handleSubmit} className="form-column">
           <input
             type="email"
             placeholder="Email"
@@ -41,7 +41,9 @@ const Login = () => {
             onChange={(e) => setPassword(e.target.value)}
             required
           />
-          <button type="submit" className="primary">Login</button>
+          <button type="submit" className="primary">
+            Login
+          </button>
         </form>
       </div>
     </div>

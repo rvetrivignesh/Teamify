@@ -7,7 +7,7 @@ const Signup = () => {
   const [formData, setFormData] = useState({
     username: "",
     email: "",
-    password: ""
+    password: "",
   });
   const [error, setError] = useState("");
   const { signup } = useAuth();
@@ -22,7 +22,7 @@ const Signup = () => {
     setError("");
     try {
       await signup(formData.username, formData.email, formData.password);
-      navigate("/");
+      navigate("/setup-profile");
     } catch (err) {
       setError(err.message);
     }
@@ -30,19 +30,11 @@ const Signup = () => {
 
   return (
     <div className="page">
-      <div className="card">
+      <div className="signup-card">
         <h2 className="auth-header">Sign-up to Teamify</h2>
-        {error && <p style={{ color: "red" }}>{error}</p>}
+        {error && <p className="error-text">{error}</p>}
 
-        <form
-          onSubmit={handleSubmit}
-          style={{
-            display: "flex",
-            flexDirection: "column",
-            width: "100%",
-            gap: "10px",
-          }}
-        >
+        <form onSubmit={handleSubmit} className="form-column">
           <input
             type="text"
             placeholder="Name (Username)"
