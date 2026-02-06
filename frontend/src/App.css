@@ -1,6 +1,6 @@
 :root {
   --bg-primary: #ffffff;
-  --bg-secondary: #f7f7f7;
+  --bg-secondary: #eeeeee;
   --text-primary: #111111;
   --text-secondary: #444444;
   --border-color: #dddddd;
@@ -100,7 +100,7 @@ body {
 }
 
 .btn-secondary {
-  background-color: transparent;
+  background-color: var(--bg-secondary);
   border: 1px solid var(--border-color);
   color: var(--text-primary);
 }
