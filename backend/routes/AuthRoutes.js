@@ -22,10 +22,10 @@ router.post('/register', async (req, res) => {
         const newUser = await User.create({ username: username, email, password });
         const token = generateToken(newUser._id);
         res.status(201).json({
-            "id": newUser._id,
-            "username": newUser.username,
-            "email": newUser.email,
-            "token": token
+            _id: newUser._id,
+            username: newUser.username,
+            email: newUser.email,
+            token: token
         });
     } catch (error) {
         res.status(500).json({ message: error.message });
@@ -44,7 +44,7 @@ router.post('/login', async (req, res) => {
         }
         const token = generateToken(user._id);
         res.status(200).json({
-            id: user._id,
+            _id: user._id,
             username: user.username,
             email: user.email,
             token: token,

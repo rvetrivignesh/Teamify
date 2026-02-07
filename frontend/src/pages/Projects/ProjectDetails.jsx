@@ -66,14 +66,19 @@ const ProjectDetails = () => {
       <div className="container projects-not-found">Project not found.</div>
     );
 
+  const userId = user?._id || user?.id;
+
   const isOwner =
-    user &&
+    userId &&
     project.owner &&
-    (project.owner._id.toString() === user._id.toString() ||
-      project.owner.toString() === user._id.toString());
+    (project.owner._id?.toString() === userId.toString() ||
+      project.owner.toString() === userId.toString());
+
   const isCollaborator =
-    user &&
-    project.collaborators.some((c) => c._id.toString() === user._id.toString());
+    userId &&
+    project.collaborators.some(
+      (c) => (c._id?.toString() || c?.toString()) === userId.toString(),
+    );
   const canJoin = user && !isOwner && !isCollaborator;
 
   return (

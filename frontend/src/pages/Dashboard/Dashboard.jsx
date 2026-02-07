@@ -76,7 +76,7 @@ const Dashboard = ({ user }) => {
                 <div className="project-footer">
                   <div className="owner-info">
                     <span>
-                      {project.owner._id === user._id
+                      {(project.owner._id || project.owner) === (user?._id || user?.id)
                         ? "Owner"
                         : "Collaborator"}
                     </span>
