@@ -25,6 +25,7 @@ import Requests from "./pages/Collaboration/Requests.jsx";
 import RequestDetails from "./pages/Collaboration/RequestDetails.jsx";
 import Notifications from "./pages/Notification/Notifications.jsx";
 import UserProfile from "./pages/Profile/UserProfile.jsx";
+import LoadingPage from "./pages/Loading/LoadingPage.jsx";
 
 import "./App.css";
 
@@ -32,7 +33,7 @@ const AppRoutes = () => {
   const { user, loading } = useAuth();
 
   if (loading) {
-    return <div className="loading loading-center">Loading...</div>;
+    return <LoadingPage />;
   }
 
   return (
