@@ -1,7 +1,7 @@
-
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import api from "../../services/api";
+import PageLoader from "../../components/PageLoader/PageLoader.jsx";
 import "./profile.css"; // We will create this file for specific styles if needed, or use inline/global
 
 const SetupProfile = () => {
@@ -77,7 +77,7 @@ const SetupProfile = () => {
     }
   };
 
-  if (loading) return <div className="setup-profile-container">Loading...</div>;
+  if (loading) return <PageLoader message="Loading Profile..." />;
 
   return (
     <div className="setup-profile-container">
@@ -110,13 +110,17 @@ const SetupProfile = () => {
                 onChange={(e) => setSkillInput(e.target.value)}
                 placeholder="Enter a skill"
                 onKeyDown={(e) =>
-                  e.key === "Enter" && (e.preventDefault(), handleAddItem("skills", skillInput, setSkillInput))
+                  e.key === "Enter" &&
+                  (e.preventDefault(),
+                  handleAddItem("skills", skillInput, setSkillInput))
                 }
               />
               <button
                 type="button"
                 className="add-btn"
-                onClick={() => handleAddItem("skills", skillInput, setSkillInput)}
+                onClick={() =>
+                  handleAddItem("skills", skillInput, setSkillInput)
+                }
               >
                 Add
               </button>
@@ -147,13 +151,25 @@ const SetupProfile = () => {
                 onChange={(e) => setAchievementInput(e.target.value)}
                 placeholder="Enter an achievement"
                 onKeyDown={(e) =>
-                  e.key === "Enter" && (e.preventDefault(), handleAddItem("achievements", achievementInput, setAchievementInput))
+                  e.key === "Enter" &&
+                  (e.preventDefault(),
+                  handleAddItem(
+                    "achievements",
+                    achievementInput,
+                    setAchievementInput,
+                  ))
                 }
               />
               <button
                 type="button"
                 className="add-btn"
-                onClick={() => handleAddItem("achievements", achievementInput, setAchievementInput)}
+                onClick={() =>
+                  handleAddItem(
+                    "achievements",
+                    achievementInput,
+                    setAchievementInput,
+                  )
+                }
               >
                 Add
               </button>
@@ -174,7 +190,9 @@ const SetupProfile = () => {
             </ul>
           </div>
 
-          <button type="submit" className="submit-btn">Save Profile</button>
+          <button type="submit" className="submit-btn">
+            Save Profile
+          </button>
         </form>
       </div>
     </div>

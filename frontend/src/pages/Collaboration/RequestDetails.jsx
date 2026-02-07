@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useParams, Link, useNavigate } from "react-router-dom";
 import api from "../../services/api";
+import PageLoader from "../../components/PageLoader/PageLoader.jsx";
 import "./collaboration.css";
 
 const RequestDetails = () => {
@@ -35,8 +36,7 @@ const RequestDetails = () => {
     }
   };
 
-  if (loading)
-    return <div className="loading request-loading">Loading Request...</div>;
+  if (loading) return <PageLoader message="Loading Request..." />;
   if (!request)
     return (
       <div className="container request-not-found">Request not found.</div>

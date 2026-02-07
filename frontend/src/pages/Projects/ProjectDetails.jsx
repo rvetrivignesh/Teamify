@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useParams, Link, useNavigate } from "react-router-dom";
 import api from "../../services/api";
 import { useAuth } from "../../context/AuthContext";
+import PageLoader from "../../components/PageLoader/PageLoader.jsx";
 import "./projects.css";
 
 const ProjectDetails = () => {
@@ -59,8 +60,7 @@ const ProjectDetails = () => {
     }
   };
 
-  if (loading)
-    return <div className="loading projects-loading">Loading Project...</div>;
+  if (loading) return <PageLoader message="Loading Project..." />;
   if (!project)
     return (
       <div className="container projects-not-found">Project not found.</div>

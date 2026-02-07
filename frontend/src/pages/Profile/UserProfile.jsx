@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import api from "../../services/api";
+import PageLoader from "../../components/PageLoader/PageLoader.jsx";
 import "./Profile.css";
 
 const UserProfile = () => {
@@ -22,8 +23,7 @@ const UserProfile = () => {
     fetchProfile();
   }, [username]);
 
-  if (loading)
-    return <div className="loading loading-center">Loading Profile...</div>;
+  if (loading) return <PageLoader message="Loading Profile..." />;
   if (!profile)
     return <div className="container text-center">Profile not found.</div>;
 

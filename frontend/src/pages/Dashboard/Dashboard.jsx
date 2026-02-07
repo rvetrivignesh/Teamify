@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import api from "../../services/api";
+import PageLoader from "../../components/PageLoader/PageLoader.jsx";
 import "./Dashboard.css";
 
 const Dashboard = ({ user }) => {
@@ -27,11 +28,7 @@ const Dashboard = ({ user }) => {
   }, []);
 
   if (loading) {
-    return (
-      <div className="container loading-center">
-        <div className="loading">Loading your dashboard...</div>
-      </div>
-    );
+    return <PageLoader message="Loading your dashboard..." />;
   }
 
   return (

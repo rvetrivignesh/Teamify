@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { Link, useSearchParams } from "react-router-dom";
 import api from "../../services/api";
+import PageLoader from "../../components/PageLoader/PageLoader.jsx";
 import "./projects.css";
 
 const ExploreProjects = () => {
@@ -48,7 +49,7 @@ const ExploreProjects = () => {
       </h1>
 
       {loading ? (
-        <div className="loading explore-projects-loading">Searching...</div>
+        <PageLoader message="Searching..." />
       ) : (
         <>
           {/* Projects Section */}

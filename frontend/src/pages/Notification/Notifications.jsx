@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import api from "../../services/api";
+import PageLoader from "../../components/PageLoader/PageLoader.jsx";
 
 const Notifications = () => {
   const [notifications, setNotifications] = useState([]);
@@ -31,7 +32,7 @@ const Notifications = () => {
     }
   };
 
-  if (loading) return <div className="loading loading-center">Loading...</div>;
+  if (loading) return <PageLoader message="Loading Notifications..." />;
 
   return (
     <div className="container container-sm">

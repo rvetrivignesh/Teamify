@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import api from "../../services/api";
+import PageLoader from "../../components/PageLoader/PageLoader.jsx";
 import "./collaboration.css";
 
 const Requests = () => {
@@ -41,8 +42,7 @@ const Requests = () => {
     }
   };
 
-  if (loading)
-    return <div className="loading requests-loading">Loading requests...</div>;
+  if (loading) return <PageLoader message="Loading requests..." />;
 
   return (
     <div className="container requests-container">
