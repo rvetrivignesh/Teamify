@@ -75,6 +75,11 @@ const AppRoutes = () => {
         />
 
         <Route
+          path="/projects/edit/:id"
+          element={user ? <CreateProject /> : <Navigate to="/login" replace />}
+        />
+
+        <Route
           path="/projects/:id"
           element={user ? <ProjectDetails /> : <Navigate to="/login" replace />}
         />
