@@ -89,11 +89,12 @@ const ProjectDetails = () => {
       >
         &larr; Back
       </button>
-
       <div className="card project-header-card">
+        <div className="project-domain-container">
+          <span className="domain-tag">{project.domain}</span>
+        </div>
         <div className="project-card-header">
           <h1 className="project-main-title">{project.name}</h1>
-          <span className="domain-tag">{project.domain}</span>
         </div>
         <p className="project-description">{project.description}</p>
 
@@ -101,7 +102,11 @@ const ProjectDetails = () => {
           <div className="project-repo-link-group">
             <h4 className="project-repo-title">Repository</h4>
             <a
-              href={project.repositoryLink.startsWith('http') ? project.repositoryLink : `https://${project.repositoryLink}`}
+              href={
+                project.repositoryLink.startsWith("http")
+                  ? project.repositoryLink
+                  : `https://${project.repositoryLink}`
+              }
               target="_blank"
               rel="noopener noreferrer"
               className="project-repo-url"
@@ -131,6 +136,37 @@ const ProjectDetails = () => {
             Created: {new Date(project.createdAt).toLocaleDateString()}
           </span>
         </div>
+
+        {isOwner && (
+          <div className="project-owner-actions">
+            <Link
+              to={`/projects/edit/${project._id}`}
+              className="btn btn-secondary btn-sm"
+            >
+              Edit
+            </Link>
+            <button
+              onClick={async () => {
+                if (
+                  window.confirm(
+                    "Are you sure you want to delete this project? This action cannot be undone.",
+                  )
+                ) {
+                  try {
+                    await api.delete(`/api/projects/${id}`);
+                    navigate("/dashboard");
+                  } catch (err) {
+                    alert("Failed to delete project");
+                  }
+                }
+              }}
+              className="btn btn-danger btn-sm"
+              style={{ marginLeft: "8px" }}
+            >
+              Delete
+            </button>
+          </div>
+        )}
       </div>
 
       <div className="project-grid">
