@@ -65,13 +65,15 @@ const ExploreProjects = () => {
   return (
     <div className="container">
       <div className="explore-header-row">
-        <h1 className="section-title">
+        <h1 className="section-title explore-select-header">
           {query ? `Results for "${query}"` : "Explore Projects"}
         </h1>
 
         {!query && domains.length > 0 && (
           <div className="domain-filter-group">
-            <label htmlFor="domain-select" className="domain-label">Filter by Domain:</label>
+            <label htmlFor="domain-select" className="domain-label">
+              Filter by Domain:
+            </label>
             <select
               id="domain-select"
               className="domain-select"
@@ -79,7 +81,7 @@ const ExploreProjects = () => {
               onChange={(e) => setSelectedDomain(e.target.value)}
             >
               <option value="">All Domains</option>
-              {domains.map(domain => (
+              {domains.map((domain) => (
                 <option key={domain} value={domain}>
                   {domain.charAt(0).toUpperCase() + domain.slice(1)}
                 </option>
@@ -100,9 +102,11 @@ const ExploreProjects = () => {
               <div className="grid-responsive">
                 {projects.map((item) => (
                   <div key={item._id} className="card project-card">
+                    <div className="project-domain-container">
+                      <span className="domain-tag">{item.domain}</span>
+                    </div>
                     <div className="project-card-header">
                       <h3 className="project-title">{item.name}</h3>
-                      <span className="domain-tag">{item.domain}</span>
                     </div>
                     <p className="project-desc">{item.description}</p>
                     <div className="tags">

@@ -37,6 +37,8 @@
 .project-title {
     font-size: 18px;
     margin-bottom: 6px;
+    overflow-wrap: break-word;
+    word-break: break-word;
 }
 
 .project-desc {
@@ -51,6 +53,8 @@
     -webkit-box-orient: vertical;
     overflow: hidden;
     text-overflow: ellipsis;
+    overflow-wrap: break-word;
+    word-break: break-word;
 }
 
 .project-footer {
@@ -114,6 +118,9 @@
 .project-main-title {
     margin-bottom: 16px;
     font-size: 32px;
+    overflow-wrap: break-word;
+    word-break: break-word;
+    line-height: 1.2;
 }
 
 .project-description {
@@ -121,6 +128,8 @@
     font-size: 18px;
     margin-bottom: 24px;
     line-height: 1.6;
+    overflow-wrap: break-word;
+    word-break: break-word;
 }
 
 .project-skills-section {
@@ -351,6 +360,13 @@
     border-color: var(--accent-color);
 }
 
+.project-domain-container {
+    display: flex;
+    justify-content: end;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
 .project-card-header {
     display: flex;
     justify-content: space-between;
@@ -395,4 +411,11 @@
     .domain-select {
         flex: 1;
     }
+}
+
+.project-owner-actions {
+    margin-top: 16px;
+    display: flex;
+    gap: 8px;
+    justify-content: flex-end;
 }
