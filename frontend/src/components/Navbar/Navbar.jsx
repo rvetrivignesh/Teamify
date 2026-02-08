@@ -58,7 +58,7 @@ const Navbar = () => {
   }, []);
 
   return (
-    <div className="navbar">
+    <div className={`navbar ${!user ? "navbar-guest" : ""}`}>
       <Link to={user ? "/dashboard" : "/"}>
         <h2 className="nav-header">Teamify</h2>
       </Link>

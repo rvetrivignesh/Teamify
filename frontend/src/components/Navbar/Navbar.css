@@ -142,7 +142,7 @@
 
     .nav-search-wrapper {
         justify-content: flex-start;
-        padding-left: 10px; 
+        padding-left: 10px;
     }
 
     .nav-actions {
@@ -154,15 +154,27 @@
         width: 100%;
         justify-content: center;
         margin-top: 4px;
-        border-top: 1px solid rgba(255,255,255,0.05); /* Optional divider */
+        border-top: 1px solid rgba(255, 255, 255, 0.05);
+        /* Optional divider */
         padding-top: 8px;
+    }
+
+    /* Guest Navbar overrides for Tablet */
+    .navbar-guest .nav-links {
+        order: 2;
+        width: auto;
+        margin-top: 0;
+        border-top: none;
+        padding-top: 0;
+        justify-content: flex-end;
     }
 }
 
 /* Mobile Layout (< 550px) */
 @media (max-width: 550px) {
-    /* Hide Teamify Title */
-    .navbar > a:first-child {
+
+    /* Hide Teamify Title only for logged-in users */
+    .navbar:not(.navbar-guest)>a:first-child {
         display: none;
     }
 
@@ -179,5 +191,11 @@
         order: 3;
         gap: 12px;
         font-size: 0.9rem;
+    }
+
+    /* Guest Navbar overrides for Mobile */
+    .navbar-guest .nav-links {
+        order: 2;
+        width: auto;
     }
 }
