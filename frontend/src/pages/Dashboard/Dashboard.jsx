@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import api from "../../services/api";
 import PageLoader from "../../components/PageLoader/PageLoader.jsx";
+import ProjectSection from "../../components/ProjectSection/ProjectSection.jsx";
 import "./Dashboard.css";
 
 const Dashboard = ({ user }) => {
@@ -48,92 +49,26 @@ const Dashboard = ({ user }) => {
         </div>
       </div>
 
-      <div className="section">
-        <div className="section-header">
-          <h2 className="section-title">Your Projects</h2>
-        </div>
-
-        {myProjects.length === 0 ? (
-          <div className="empty-state">
-            <p>You haven't joined or created any projects yet.</p>
-            <Link to="/projects/create" className="link-accent no-underline">
-              Create one now
-            </Link>
-          </div>
-        ) : (
-          <div className="grid-responsive">
-            {myProjects.map((project) => (
-              <div key={project._id} className="card project-card">
-                <h3>{project.name}</h3>
-                <p className="project-desc">{project.description}</p>
-                <div className="tags">
-                  {project.skillsRequired.slice(0, 3).map((skill) => (
-                    <span key={skill} className="tag">
-                      {skill}
-                    </span>
-                  ))}
-                </div>
-                <div className="project-footer">
-                  <div className="owner-info">
-                    <span>
-                      {(project.owner._id || project.owner) === (user?._id || user?.id)
-                        ? "Owner"
-                        : "Collaborator"}
-                    </span>
-                  </div>
-                  <Link
-                    to={`/projects/${project._id}`}
-                    className="btn btn-sm btn-secondary"
-                  >
-                    View
-                  </Link>
-                </div>
-              </div>
-            ))}
-          </div>
-        )}
-      </div>
+      <ProjectSection
+        title="Your Projects"
+        projects={myProjects}
+        emptyMessage="You haven't joined or created any projects yet."
+        emptyLinkTo="/projects/create"
+        emptyLinkText="Create one now"
+        user={user}
+        showOwnerInfo="collaborator"
+      />
 
       <div className="section mt-48">
-        <div className="section-header">
-          <h2 className="section-title">Recommended For You:</h2>
-        </div>
-
-        {recommendedProjects.length === 0 ? (
-          <div className="empty-state">
-            <p>No recommendations found based on your skills.</p>
-            <Link to="/setup-profile" style={{ color: "var(--accent-color)" }}>
-              Update your skills
-            </Link>
-          </div>
-        ) : (
-          <div className="grid-responsive">
-            {recommendedProjects.map((project) => (
-              <div key={project._id} className="card project-card">
-                <h3>{project.name}</h3>
-                <p className="project-desc">{project.description}</p>
-                <div className="tags">
-                  {project.skillsRequired.slice(0, 3).map((skill) => (
-                    <span key={skill} className="tag">
-                      {skill}
-                    </span>
-                  ))}
-                </div>
-                <div className="project-footer">
-                  <div className="owner-info">
-                    <span>by {project.owner.username}</span>
-                  </div>
-                  <Link
-                    to={`/projects/${project._id}`}
-                    className="btn btn-sm btn-secondary"
-                  >
-                    View
-                  </Link>
-                </div>
-              </div>
-            ))}
-          </div>
-        )}
+        <ProjectSection
+          title="Recommended For You:"
+          projects={recommendedProjects}
+          emptyMessage="No recommendations found based on your skills."
+          emptyLinkTo="/setup-profile"
+          emptyLinkText="Update your skills"
+          user={user}
+          showOwnerInfo="username"
+        />
       </div>
     </div>
   );

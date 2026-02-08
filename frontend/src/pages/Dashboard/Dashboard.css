@@ -30,9 +30,19 @@
     height: 100%;
 }
 
-.project-card h3 {
-    font-size: 18px;
+.project-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 8px;
     margin-bottom: 8px;
+}
+
+.project-title {
+    font-size: 18px;
+    margin-bottom: 6px;
+    overflow-wrap: break-word;
+    word-break: break-word;
     color: var(--text-primary);
 }
 
@@ -55,6 +65,12 @@
     margin-top: 16px;
     padding-top: 16px;
     border-top: 1px solid var(--border-color);
+    gap: 12px;
+}
+
+.project-actions {
+    display: flex;
+    gap: 8px;
 }
 
 .owner-info {
