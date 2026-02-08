@@ -147,6 +147,7 @@ body {
 }
 
 .section-title {
+  text-align: center;
   font-size: 24px;
   font-weight: 700;
   margin-bottom: 24px;
