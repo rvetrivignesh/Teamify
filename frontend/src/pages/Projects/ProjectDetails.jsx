@@ -91,8 +91,25 @@ const ProjectDetails = () => {
       </button>
 
       <div className="card project-header-card">
-        <h1 className="project-main-title">{project.name}</h1>
+        <div className="project-card-header">
+          <h1 className="project-main-title">{project.name}</h1>
+          <span className="domain-tag">{project.domain}</span>
+        </div>
         <p className="project-description">{project.description}</p>
+
+        {project.repositoryLink && (
+          <div className="project-repo-link-group">
+            <h4 className="project-repo-title">Repository</h4>
+            <a
+              href={project.repositoryLink.startsWith('http') ? project.repositoryLink : `https://${project.repositoryLink}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="project-repo-url"
+            >
+              {project.repositoryLink}
+            </a>
+          </div>
+        )}
 
         <div className="project-skills-section">
           <h4 className="project-skills-title">Required Skills</h4>

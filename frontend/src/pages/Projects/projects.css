@@ -46,6 +46,8 @@
     /* clamp to 4 lines and hide overflow */
     display: -webkit-box;
     -webkit-line-clamp: 4;
+    line-clamp: 4;
+    /* Added for compatibility */
     -webkit-box-orient: vertical;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -76,8 +78,29 @@
 }
 
 /* ProjectDetails Specific */
-.project-details-container {
-    /* base container */
+.project-repo-link-group {
+    margin-bottom: 24px;
+    padding: 12px;
+    background: var(--bg-secondary);
+    border-radius: 8px;
+    border: 1px solid var(--border-color);
+}
+
+.project-repo-title {
+    margin-bottom: 4px;
+    font-size: 14px;
+    color: var(--text-primary);
+}
+
+.project-repo-url {
+    font-size: 14px;
+    color: var(--accent-color);
+    text-decoration: none;
+    word-break: break-all;
+}
+
+.project-repo-url:hover {
+    text-decoration: underline;
 }
 
 .project-back-button {
@@ -287,6 +310,64 @@
     margin-top: 24px;
 }
 
+/* Explore Layout Improvements */
+.explore-header-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 24px;
+    flex-wrap: wrap;
+    gap: 16px;
+}
+
+.domain-filter-group {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.domain-label {
+    font-size: 14px;
+    color: var(--text-secondary);
+    font-weight: 500;
+}
+
+.domain-select {
+    padding: 8px 12px;
+    border-radius: 8px;
+    border: 1px solid var(--border-color);
+    background-color: var(--card-bg);
+    color: var(--text-primary);
+    font-size: 14px;
+    cursor: pointer;
+    outline: none;
+    transition: border-color var(--transition);
+}
+
+.domain-select:focus {
+    border-color: var(--accent-color);
+}
+
+.project-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 8px;
+    margin-bottom: 8px;
+}
+
+.domain-tag {
+    font-size: 11px;
+    padding: 2px 8px;
+    background: var(--bg-secondary);
+    border-radius: 4px;
+    color: var(--accent-color);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    white-space: nowrap;
+}
+
 /* Ensure cards remain usable on small screens */
 @media (max-width: 600px) {
     .project-card {
@@ -297,5 +378,18 @@
     .grid-responsive>.card {
         flex: 1 1 100%;
         max-width: 100%;
+    }
+
+    .explore-header-row {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .domain-filter-group {
+        width: 100%;
+    }
+
+    .domain-select {
+        flex: 1;
     }
 }
