@@ -48,10 +48,12 @@ const SetupProfile = () => {
   };
 
   const handleAddItem = (field, value, setInput) => {
-    if (value.trim()) {
+    const v = value.trim();
+    if (v) {
+      const normalized = field === "skills" ? v.toLowerCase() : v;
       setFormData((prev) => ({
         ...prev,
-        [field]: [...prev[field], value],
+        [field]: [...prev[field], normalized],
       }));
       setInput("");
     }

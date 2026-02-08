@@ -28,7 +28,7 @@ const CreateProject = () => {
     try {
       const skillsArray = formData.skillsRequired
         .split(",")
-        .map((s) => s.trim())
+        .map((s) => s.trim().toLowerCase())
         .filter(Boolean);
       const tasksArray = formData.tasks
         .split("\n")
@@ -72,7 +72,9 @@ const CreateProject = () => {
           </div>
 
           <div className="input-group">
-            <label className="input-label">Domain (e.g., IoT, Software, AI)</label>
+            <label className="input-label">
+              Domain (e.g., IoT, Software, AI)
+            </label>
             <input
               name="domain"
               className="input-field"
