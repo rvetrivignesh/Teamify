@@ -1,11 +1,12 @@
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import api from "../../services/api";
 import PageLoader from "../../components/PageLoader/PageLoader.jsx";
 
 const Notifications = () => {
   const [notifications, setNotifications] = useState([]);
   const [loading, setLoading] = useState(true);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchNotifications = async () => {
@@ -32,6 +33,15 @@ const Notifications = () => {
     }
   };
 
+  const handleNotificationClick = (notif) => {
+    if (notif.type === "request") {
+      if (!notif.isRead) markAsRead(notif._id);
+      navigate(`/requests/${notif.relatedId}`);
+    } else {
+      if (!notif.isRead) markAsRead(notif._id);
+    }
+  };
+
   if (loading) return <PageLoader message="Loading Notifications..." />;
 
   return (
@@ -48,20 +58,11 @@ const Notifications = () => {
             <div
               key={notif._id}
               className={`card notif-item ${notif.isRead ? "read" : "unread"}`}
+              onClick={() => handleNotificationClick(notif)}
             >
               <div>
                 <p className="notif-msg">
-                  {notif.type === "request" ? (
-                    <Link
-                      to={`/requests/${notif.relatedId}`}
-                      onClick={() => !notif.isRead && markAsRead(notif._id)}
-                      className="no-underline"
-                    >
-                      {notif.message}
-                    </Link>
-                  ) : (
-                    notif.message
-                  )}
+                  {notif.message}
                 </p>
                 <span className="small text-muted">
                   {new Date(notif.createdAt).toLocaleString()}
@@ -69,7 +70,10 @@ const Notifications = () => {
               </div>
               {!notif.isRead && (
                 <button
-                  onClick={() => markAsRead(notif._id)}
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    markAsRead(notif._id);
+                  }}
                   className="btn btn-sm btn-secondary"
                 >
                   Mark as read
