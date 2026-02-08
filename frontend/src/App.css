@@ -154,6 +154,10 @@ body {
   color: var(--text-primary);
 }
 
+.explore-select-header {
+  margin: 0;
+}
+
 .grid-cols-3 {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
@@ -170,6 +174,9 @@ body {
   margin-right: 8px;
   margin-bottom: 8px;
   border: 1px solid var(--border-color);
+  overflow-wrap: break-word;
+  word-break: break-word;
+  max-width: 100%;
 }
 
 .grid-responsive {
@@ -288,6 +295,8 @@ img {
 .profile-bio {
   margin-bottom: 24px;
   color: var(--text-secondary);
+  overflow-wrap: break-word;
+  word-break: break-word;
 }
 
 .list-no-style {
