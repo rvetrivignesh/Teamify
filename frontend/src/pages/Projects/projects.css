@@ -200,6 +200,7 @@
 }
 
 .project-collaborator-avatar {
+    color: black;
     width: 32px;
     height: 32px;
     background: #eee;
