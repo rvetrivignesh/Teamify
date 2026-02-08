@@ -49,6 +49,8 @@
     border-radius: 8px;
     font-style: italic;
     color: var(--text-secondary);
+    word-break: break-word;
+    overflow-wrap: anywhere;
 }
 
 .request-actions {
@@ -118,21 +120,35 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+    gap: 16px;
+    cursor: pointer;
+}
+
+.received-request-card>div:first-child {
+    flex: 1;
+    min-width: 0;
 }
 
 .sent-request-card {
     margin-bottom: 16px;
+    cursor: pointer;
 }
 
 .request-title {
     font-size: 16px;
     margin-bottom: 4px;
+    word-break: break-word;
+    /* Ensure long titles wrap */
+    overflow-wrap: anywhere;
 }
 
 .request-message {
     color: var(--text-secondary);
     font-style: italic;
     margin-bottom: 8px;
+    word-break: break-word;
+    /* Ensure long messages wrap */
+    overflow-wrap: anywhere;
 }
 
 .request-status {
@@ -163,6 +179,7 @@
 .request-actions {
     display: flex;
     gap: 8px;
+    flex-shrink: 0;
 }
 
 .request-action-accept {

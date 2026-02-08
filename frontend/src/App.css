@@ -260,6 +260,21 @@ img {
   gap: 16px;
 }
 
+.notif-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  cursor: pointer;
+}
+
+.notif-item>div:first-child {
+  flex: 1;
+  min-width: 0;
+  /* allows text truncation */
+  padding-right: 8px;
+}
+
 .notif-item.unread {
   border-left: 4px solid var(--accent-color);
   opacity: 1;
@@ -273,6 +288,8 @@ img {
 .notif-msg {
   font-size: 16px;
   margin-bottom: 4px;
+  word-break: break-word;
+  overflow-wrap: anywhere;
 }
 
 .small {
