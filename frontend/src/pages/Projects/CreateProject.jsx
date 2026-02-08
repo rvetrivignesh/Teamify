@@ -1,10 +1,11 @@
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 import api from "../../services/api";
 import "./projects.css";
 
 const CreateProject = () => {
   const navigate = useNavigate();
+  const { id } = useParams();
   const [formData, setFormData] = useState({
     name: "",
     description: "",
@@ -15,6 +16,30 @@ const CreateProject = () => {
   });
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
+
+  const isEditMode = !!id;
+
+  useEffect(() => {
+    if (isEditMode) {
+      const fetchProject = async () => {
+        try {
+          const { data } = await api.get(`/api/projects/${id}`);
+          setFormData({
+            name: data.name || "",
+            description: data.description || "",
+            domain: data.domain || "",
+            repositoryLink: data.repositoryLink || "",
+            skillsRequired: data.skillsRequired?.join(", ") || "",
+            tasks: data.tasks?.map((t) => t.title).join("\n") || "",
+          });
+        } catch (err) {
+          setError("Failed to load project details");
+          console.error(err);
+        }
+      };
+      fetchProject();
+    }
+  }, [id, isEditMode]);
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -44,10 +69,14 @@ const CreateProject = () => {
         tasks: tasksArray,
       };
 
-      await api.post("/api/projects", payload);
-      navigate("/dashboard");
+      if (isEditMode) {
+        await api.put(`/api/projects/${id}`, payload);
+      } else {
+        await api.post("/api/projects", payload);
+      }
+      navigate(isEditMode ? `/projects/${id}` : "/dashboard");
     } catch (err) {
-      setError(err.response?.data?.message || "Failed to create project");
+      setError(err.response?.data?.message || "Failed to save project");
     } finally {
       setLoading(false);
     }
@@ -55,7 +84,9 @@ const CreateProject = () => {
 
   return (
     <div className="container create-project-container">
-      <h1 className="section-title">Start a New Project</h1>
+      <h1 className="section-title">
+        {isEditMode ? "Edit Project" : "Start a New Project"}
+      </h1>
       <div className="card">
         {error && <div className="create-project-error">{error}</div>}
         <form onSubmit={handleSubmit}>
@@ -67,6 +98,7 @@ const CreateProject = () => {
               value={formData.name}
               onChange={handleChange}
               required
+              maxLength={20}
               placeholder="e.g. AI Content Generator"
             />
           </div>
@@ -81,6 +113,7 @@ const CreateProject = () => {
               value={formData.domain}
               onChange={handleChange}
               required
+              maxLength={20}
               placeholder="e.g. software"
             />
           </div>
@@ -149,7 +182,13 @@ const CreateProject = () => {
               className="btn btn-primary"
               disabled={loading}
             >
-              {loading ? "Creating..." : "Launch Project"}
+              {loading
+                ? isEditMode
+                  ? "Updating..."
+                  : "Creating..."
+                : isEditMode
+                  ? "Update Project"
+                  : "Launch Project"}
             </button>
           </div>
         </form>
