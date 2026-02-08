@@ -8,6 +8,8 @@ const CreateProject = () => {
   const [formData, setFormData] = useState({
     name: "",
     description: "",
+    domain: "",
+    repositoryLink: "",
     skillsRequired: "",
     tasks: "",
   });
@@ -36,12 +38,14 @@ const CreateProject = () => {
       const payload = {
         name: formData.name,
         description: formData.description,
+        domain: formData.domain.trim().toLowerCase(),
+        repositoryLink: formData.repositoryLink.trim(),
         skillsRequired: skillsArray,
         tasks: tasksArray,
       };
 
       await api.post("/api/projects", payload);
-      navigate("/");
+      navigate("/dashboard");
     } catch (err) {
       setError(err.response?.data?.message || "Failed to create project");
     } finally {
@@ -68,6 +72,29 @@ const CreateProject = () => {
           </div>
 
           <div className="input-group">
+            <label className="input-label">Domain (e.g., IoT, Software, AI)</label>
+            <input
+              name="domain"
+              className="input-field"
+              value={formData.domain}
+              onChange={handleChange}
+              required
+              placeholder="e.g. software"
+            />
+          </div>
+
+          <div className="input-group">
+            <label className="input-label">Repository Link (Optional)</label>
+            <input
+              name="repositoryLink"
+              className="input-field"
+              value={formData.repositoryLink}
+              onChange={handleChange}
+              placeholder="https://github.com/your-repo"
+            />
+          </div>
+
+          <div className="input-group">
             <label className="input-label">Description</label>
             <textarea
               name="description"
@@ -89,6 +116,7 @@ const CreateProject = () => {
               className="input-field"
               value={formData.skillsRequired}
               onChange={handleChange}
+              required
               placeholder="React, Python, Design..."
             />
           </div>
@@ -101,6 +129,7 @@ const CreateProject = () => {
               rows="4"
               value={formData.tasks}
               onChange={handleChange}
+              required
               placeholder="Setup repository&#10;Design database schema"
             />
           </div>
