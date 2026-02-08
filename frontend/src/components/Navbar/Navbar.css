@@ -1,37 +1,48 @@
 .navbar {
     display: flex;
-    width: 100%;
-    flex-direction: row;
+    flex-wrap: wrap;
     justify-content: space-between;
     align-items: center;
-    padding: 1rem 2rem;
+    padding: 0.5rem 1.5rem;
     background-color: var(--navbar-bg);
     color: var(--navbar-text);
     position: sticky;
     top: 0;
     z-index: 1000;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    flex-wrap: wrap;
-    /* Added for responsiveness */
-    gap: 16px;
+    gap: 12px;
 }
 
 .nav-header {
-    font-size: 24px;
+    font-size: 22px;
     font-weight: 800;
     margin: 0;
     text-decoration: none;
     color: var(--navbar-text);
-    /* letter-spacing: -1px; */
-    /* transition: color 0.3s; */
 }
 
+.nav-search-wrapper {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    min-width: 150px;
+    order: 2;
+}
+
+/* Nav Actions (Toggle + Profile) */
+.nav-actions {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    order: 4;
+}
+
+/* Nav Links (Pages) */
 .nav-links {
     display: flex;
-    gap: 24px;
+    gap: 20px;
     align-items: center;
-    flex-wrap: wrap;
-    /* Ensure menu items wrap on small screens */
+    order: 3;
 }
 
 .nav-link {
@@ -40,8 +51,8 @@
     font-weight: 500;
     position: relative;
     padding: 4px 0;
+    font-size: 0.95rem;
     white-space: nowrap;
-    /* Prevent breaking link text */
 }
 
 .nav-link:hover {
@@ -72,8 +83,8 @@
 }
 
 .profile-avatar {
-    width: 36px;
-    height: 36px;
+    width: 32px;
+    height: 32px;
     border-radius: 50%;
     background-color: var(--bg-secondary);
     color: var(--text-primary);
@@ -83,6 +94,7 @@
     font-weight: bold;
     border: 2px solid var(--border-color);
     transition: border-color 0.2s;
+    font-size: 14px;
 }
 
 .profile-avatar:hover {
@@ -91,7 +103,7 @@
 
 .dropdown-menu {
     position: absolute;
-    top: 50px;
+    top: 45px;
     right: 0;
     background-color: var(--card-bg);
     border: 1px solid var(--border-color);
@@ -121,30 +133,51 @@
     background-color: var(--bg-secondary);
 }
 
-.nav-search-wrapper {
-    flex: 1;
-    display: flex;
-    justify-content: center;
-    min-width: 250px;
-    /* Minimum width for search */
-}
-
-@media (max-width: 900px) {
+/* Tablet Layout (< 950px) */
+@media (max-width: 950px) {
     .navbar {
-        justify-content: center;
+        padding: 0.5rem 1rem;
+        gap: 8px;
     }
 
     .nav-search-wrapper {
+        justify-content: flex-start;
+        padding-left: 10px; 
+    }
+
+    .nav-actions {
         order: 3;
-        /* Move search below on mobile */
-        width: 100%;
-        margin-top: 8px;
-        min-width: 100%;
     }
 
     .nav-links {
-        gap: 16px;
-        justify-content: center;
+        order: 4;
         width: 100%;
+        justify-content: center;
+        margin-top: 4px;
+        border-top: 1px solid rgba(255,255,255,0.05); /* Optional divider */
+        padding-top: 8px;
+    }
+}
+
+/* Mobile Layout (< 550px) */
+@media (max-width: 550px) {
+    /* Hide Teamify Title */
+    .navbar > a:first-child {
+        display: none;
+    }
+
+    .nav-search-wrapper {
+        order: 1;
+        padding-left: 0;
+    }
+
+    .nav-actions {
+        order: 2;
+    }
+
+    .nav-links {
+        order: 3;
+        gap: 12px;
+        font-size: 0.9rem;
     }
 }

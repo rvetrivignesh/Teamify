@@ -63,16 +63,37 @@ const Navbar = () => {
         <h2 className="nav-header">Teamify</h2>
       </Link>
 
-      {user && (
-        <div className="nav-search-wrapper">
-          <NavSearch />
-        </div>
-      )}
+      {user ? (
+        <>
+          <div className="nav-search-wrapper">
+            <NavSearch />
+          </div>
 
-      <div className="nav-links">
-        {user ? (
-          <>
-            {/* Added Dashboard Button */}
+          <div className="nav-actions">
+            <ThemeToggle />
+            <div
+              className="user-menu"
+              ref={dropdownRef}
+              onClick={() => setDropdownOpen(!dropdownOpen)}
+            >
+              <div className="profile-avatar">
+                {user.username[0].toUpperCase()}
+              </div>
+              <div className={`dropdown-menu ${dropdownOpen ? "active" : ""}`}>
+                <Link to={`/profile/${user.username}`} className="dropdown-item">
+                  My Profile
+                </Link>
+                <Link to="/setup-profile" className="dropdown-item">
+                  Edit Profile
+                </Link>
+                <div className="dropdown-item text-danger" onClick={logout}>
+                  Logout
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div className="nav-links">
             <Link to="/dashboard" className="nav-link">
               Dashboard
             </Link>
@@ -94,42 +115,18 @@ const Navbar = () => {
                 <span className="badge">{stats.unreadNotifications}</span>
               )}
             </Link>
-
-            <ThemeToggle />
-
-            {/* Profile Dropdown */}
-            <div
-              className="user-menu"
-              ref={dropdownRef}
-              onClick={() => setDropdownOpen(!dropdownOpen)}
-            >
-              <div className="profile-avatar">
-                {user.username[0].toUpperCase()}
-              </div>
-              <div className={`dropdown-menu ${dropdownOpen ? "active" : ""}`}>
-                <Link to={`/profile/${user.username}`} className="dropdown-item">
-                  My Profile
-                </Link>
-                <Link to="/setup-profile" className="dropdown-item">
-                  Edit Profile
-                </Link>
-                <div className="dropdown-item text-danger" onClick={logout}>
-                  Logout
-                </div>
-              </div>
-            </div>
-          </>
-        ) : (
-          <>
-            <Link to="/login" className="nav-link">
-              Login
-            </Link>
-            <Link to="/signup" className="btn btn-primary btn-sm no-underline">
-              Register
-            </Link>
-          </>
-        )}
-      </div>
+          </div>
+        </>
+      ) : (
+        <div className="nav-links">
+          <Link to="/login" className="nav-link">
+            Login
+          </Link>
+          <Link to="/signup" className="btn btn-primary btn-sm no-underline">
+            Register
+          </Link>
+        </div>
+      )}
     </div>
   );
 };

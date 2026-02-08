@@ -6,7 +6,7 @@
     padding: 2px 4px;
     border: 1px solid transparent;
     transition: border-color 0.3s;
-    height: 36px;
+    height: 32px;
 }
 
 .nav-search-container:focus-within {
@@ -16,8 +16,8 @@
 .nav-search-input {
     border: none;
     background: transparent;
-    padding: 6px 12px;
-    font-size: 14px;
+    padding: 4px 12px;
+    font-size: 13px;
     color: var(--text-primary);
     width: 240px;
     outline: none;
@@ -37,13 +37,13 @@
     padding-left: 4px;
 }
 
-@media (max-width: 768px) {
+@media (max-width: 950px) {
     .nav-search-input {
         width: 100%;
     }
 
     .nav-search-container {
         width: 100%;
-        margin-bottom: 8px;
+        /* margin-bottom removed to fit in flex row */
     }
 }
