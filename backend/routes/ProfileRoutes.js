@@ -5,6 +5,24 @@ import protect from '../middleware/Authenticate.js';
 
 const router = express.Router();
 
+router.get('/me', protect, async (req, res) => {
+    try {
+        const profile = await UserProfile.findOne({ user: req.user._id }).populate(
+            'user',
+            'username email',
+        );
+
+        if (!profile) {
+            return res.status(404).json({ message: 'Profile not found' });
+        }
+
+        res.json(profile);
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: 'Server Error' });
+    }
+});
+
 router.post("/", protect, async (req, res) => {
     try {
 
