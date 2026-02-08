@@ -10,13 +10,15 @@ const router = express.Router();
 // Create a new project
 router.post("/", protect, async (req, res) => {
     try {
-        const { name, description, skillsRequired, tasks } = req.body;
+        const { name, description, skillsRequired, tasks, domain, repositoryLink } = req.body;
 
         const project = new Project({
             name,
             description,
             skillsRequired,
             tasks,
+            domain,
+            repositoryLink,
             owner: req.user._id,
             collaborators: [],
         });
@@ -24,14 +26,31 @@ router.post("/", protect, async (req, res) => {
         const createdProject = await project.save();
         res.status(201).json(createdProject);
     } catch (error) {
+        res.status(500).json({ message: "Server Error", error: error.message });
+    }
+});
+
+// Get all unique domains
+router.get("/domains", protect, async (req, res) => {
+    try {
+        const domains = await Project.distinct("domain");
+        res.json(domains);
+    } catch (error) {
         res.status(500).json({ message: "Server Error" });
     }
 });
 
-// Get all projects (Explore)
+// Get all projects (Explore) - Supports domain filtering
 router.get("/", protect, async (req, res) => {
     try {
-        const projects = await Project.find()
+        const { domain } = req.query;
+        let query = {};
+
+        if (domain) {
+            query.domain = domain;
+        }
+
+        const projects = await Project.find(query)
             .populate("owner", "username email")
             .sort({ createdAt: -1 });
         res.json(projects);
