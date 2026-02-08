@@ -105,17 +105,18 @@ const SetupProfile = () => {
 
           {/* Skills Section */}
           <div className="form-group">
-            <label>Skills</label>
+            <label>Skills/Interests</label>
             <div className="input-group">
               <input
                 type="text"
                 value={skillInput}
                 onChange={(e) => setSkillInput(e.target.value)}
+                maxLength={15}
                 placeholder="Enter a skill"
                 onKeyDown={(e) =>
                   e.key === "Enter" &&
                   (e.preventDefault(),
-                  handleAddItem("skills", skillInput, setSkillInput))
+                    handleAddItem("skills", skillInput, setSkillInput))
                 }
               />
               <button
@@ -152,15 +153,16 @@ const SetupProfile = () => {
                 type="text"
                 value={achievementInput}
                 onChange={(e) => setAchievementInput(e.target.value)}
+                maxLength={40}
                 placeholder="Enter an achievement"
                 onKeyDown={(e) =>
                   e.key === "Enter" &&
                   (e.preventDefault(),
-                  handleAddItem(
-                    "achievements",
-                    achievementInput,
-                    setAchievementInput,
-                  ))
+                    handleAddItem(
+                      "achievements",
+                      achievementInput,
+                      setAchievementInput,
+                    ))
                 }
               />
               <button

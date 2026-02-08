@@ -102,6 +102,9 @@
     font-size: 0.9rem;
     color: var(--text-primary);
     box-shadow: var(--shadow-sm);
+    word-break: break-word;
+    overflow-wrap: break-word;
+    max-width: 100%;
 }
 
 .remove-btn {
@@ -174,6 +177,8 @@
 
 .profile-title {
     margin-bottom: 8px;
+    word-break: break-word;
+    overflow-wrap: break-word;
 }
 
 .profile-section {
@@ -182,4 +187,9 @@
 
 .profile-section-title {
     margin-bottom: 8px;
+}
+
+.profile-section li {
+    overflow-wrap: break-word;
+    word-break: break-word;
 }
