@@ -199,5 +199,54 @@ router.delete("/:id/collaborators/:userId", protect, async (req, res) => {
     }
 });
 
+// Update project details
+router.put("/:id", protect, async (req, res) => {
+    try {
+        const { name, description, skillsRequired, tasks, domain, repositoryLink } = req.body;
+        const project = await Project.findById(req.params.id);
+
+        if (!project) {
+            return res.status(404).json({ message: "Project not found" });
+        }
+
+        if (project.owner.toString() !== req.user._id.toString()) {
+            return res.status(401).json({ message: "Not authorized to update this project" });
+        }
+
+        project.name = name || project.name;
+        project.description = description || project.description;
+        project.skillsRequired = skillsRequired || project.skillsRequired;
+        project.tasks = tasks || project.tasks;
+        project.domain = domain || project.domain;
+        project.repositoryLink = repositoryLink || project.repositoryLink;
+
+        const updatedProject = await project.save();
+        res.json(updatedProject);
+    } catch (error) {
+        res.status(500).json({ message: "Server Error" });
+    }
+});
+
+// Delete a project
+router.delete("/:id", protect, async (req, res) => {
+    try {
+        const project = await Project.findById(req.params.id);
+
+        if (!project) {
+            return res.status(404).json({ message: "Project not found" });
+        }
+
+        if (project.owner.toString() !== req.user._id.toString()) {
+            return res.status(401).json({ message: "Not authorized to delete this project" });
+        }
+
+        await project.deleteOne();
+        res.json({ message: "Project removed" });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: "Server Error" });
+    }
+});
+
 export default router;
 
