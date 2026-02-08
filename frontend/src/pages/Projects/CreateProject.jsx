@@ -98,7 +98,7 @@ const CreateProject = () => {
               value={formData.name}
               onChange={handleChange}
               required
-              maxLength={20}
+              maxLength={40}
               placeholder="e.g. AI Content Generator"
             />
           </div>
