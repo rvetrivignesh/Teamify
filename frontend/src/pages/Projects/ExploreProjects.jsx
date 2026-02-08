@@ -8,25 +8,45 @@ const ExploreProjects = () => {
   const [searchParams] = useSearchParams();
   const [projects, setProjects] = useState([]);
   const [users, setUsers] = useState([]);
+  const [domains, setDomains] = useState([]);
+  const [selectedDomain, setSelectedDomain] = useState("");
   const [loading, setLoading] = useState(false);
   const [initialLoad, setInitialLoad] = useState(true);
 
   // Read params from URL
   const query = searchParams.get("q") || "";
 
+  // Fetch unique domains on mount
+  useEffect(() => {
+    const fetchDomains = async () => {
+      try {
+        const { data } = await api.get("/api/projects/domains");
+        setDomains(data);
+      } catch (error) {
+        console.error("Failed to fetch domains", error);
+      }
+    };
+    fetchDomains();
+  }, []);
+
   useEffect(() => {
     const handleSearch = async () => {
       setLoading(true);
       try {
         if (!query) {
-          // Default Explore View: Projects only
-          const { data } = await api.get("/api/projects");
+          // Default Explore View: Projects only with optional domain filtering
+          const url = selectedDomain ? `/api/projects?domain=${selectedDomain}` : "/api/projects";
+          const { data } = await api.get(url);
           setProjects(data);
           setUsers([]);
         } else {
-          // Combined Search View
+          // Combined Search View (Search might not support domain filter in same endpoint, but we keep it consistent)
           const { data } = await api.get(`/api/search?q=${query}`);
-          setProjects(data.projects || []);
+          let filteredProjects = data.projects || [];
+          if (selectedDomain) {
+            filteredProjects = filteredProjects.filter(p => p.domain === selectedDomain);
+          }
+          setProjects(filteredProjects);
           setUsers(data.users || []);
         }
       } catch (error) {
@@ -40,13 +60,34 @@ const ExploreProjects = () => {
     };
 
     handleSearch();
-  }, [query]);
+  }, [query, selectedDomain]);
 
   return (
     <div className="container">
-      <h1 className="section-title">
-        {query ? `Results for "${query}"` : "Explore Projects"}
-      </h1>
+      <div className="explore-header-row">
+        <h1 className="section-title">
+          {query ? `Results for "${query}"` : "Explore Projects"}
+        </h1>
+
+        {!query && domains.length > 0 && (
+          <div className="domain-filter-group">
+            <label htmlFor="domain-select" className="domain-label">Filter by Domain:</label>
+            <select
+              id="domain-select"
+              className="domain-select"
+              value={selectedDomain}
+              onChange={(e) => setSelectedDomain(e.target.value)}
+            >
+              <option value="">All Domains</option>
+              {domains.map(domain => (
+                <option key={domain} value={domain}>
+                  {domain.charAt(0).toUpperCase() + domain.slice(1)}
+                </option>
+              ))}
+            </select>
+          </div>
+        )}
+      </div>
 
       {loading ? (
         <PageLoader message="Searching..." />
@@ -59,7 +100,10 @@ const ExploreProjects = () => {
               <div className="grid-responsive">
                 {projects.map((item) => (
                   <div key={item._id} className="card project-card">
-                    <h3 className="project-title">{item.name}</h3>
+                    <div className="project-card-header">
+                      <h3 className="project-title">{item.name}</h3>
+                      <span className="domain-tag">{item.domain}</span>
+                    </div>
                     <p className="project-desc">{item.description}</p>
                     <div className="tags">
                       {item.skillsRequired?.slice(0, 3).map((skill) => (
