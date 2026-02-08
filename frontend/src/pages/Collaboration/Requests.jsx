@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import api from "../../services/api";
 import PageLoader from "../../components/PageLoader/PageLoader.jsx";
 import "./collaboration.css";
@@ -8,6 +9,7 @@ const Requests = () => {
   const [received, setReceived] = useState([]);
   const [loading, setLoading] = useState(true);
   const [activeTab, setActiveTab] = useState("received"); // 'received' or 'sent'
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchRequests = async () => {
@@ -69,7 +71,11 @@ const Requests = () => {
             <p className="empty-state">No received requests.</p>
           ) : (
             received.map((req) => (
-              <div key={req._id} className="card received-request-card">
+              <div
+                key={req._id}
+                className="card received-request-card"
+                onClick={() => navigate(`/requests/${req._id}`)}
+              >
                 <div>
                   <p className="request-title">
                     <b>{req.sender.username}</b> wants to join{" "}
@@ -83,13 +89,19 @@ const Requests = () => {
                 {req.status === "pending" && (
                   <div className="request-actions">
                     <button
-                      onClick={() => handleResponse(req._id, "accepted")}
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        handleResponse(req._id, "accepted");
+                      }}
                       className="btn btn-sm request-action-accept"
                     >
                       Accept
                     </button>
                     <button
-                      onClick={() => handleResponse(req._id, "rejected")}
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        handleResponse(req._id, "rejected");
+                      }}
                       className="btn btn-sm btn-danger"
                     >
                       Reject
@@ -103,7 +115,11 @@ const Requests = () => {
           <p className="empty-state">No sent requests.</p>
         ) : (
           sent.map((req) => (
-            <div key={req._id} className="card sent-request-card">
+            <div
+              key={req._id}
+              className="card sent-request-card"
+              onClick={() => navigate(`/requests/${req._id}`)}
+            >
               <p className="request-title">
                 You requested to join{" "}
                 <b>{req.project?.name || "Unknown Project"}</b>
