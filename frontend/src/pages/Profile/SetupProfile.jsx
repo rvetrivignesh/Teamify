@@ -70,6 +70,7 @@ const SetupProfile = () => {
     try {
       const { data } = await api.post("/api/profile", formData);
       setMessage({ type: "success", text: "Profile updated successfully!" });
+      navigate("/dashboard"); // Redirect to dashboard after saving, or you can choose to stay on the page
       // Optionally redirect or stay
     } catch (error) {
       console.error("Error saving profile:", error);
