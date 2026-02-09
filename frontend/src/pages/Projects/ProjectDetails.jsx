@@ -128,7 +128,6 @@ const ProjectDetails = () => {
         </div>
 
         <div className="project-meta">
-          {console.log(project)}
           <Link to={`/profile/${project.owner.username}`}>
             <span>
               Owner:{" "}
