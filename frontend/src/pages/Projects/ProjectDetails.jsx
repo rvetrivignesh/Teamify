@@ -128,9 +128,13 @@ const ProjectDetails = () => {
         </div>
 
         <div className="project-meta">
-          <span>
-            Owner: <b>{project.owner.username}</b>
-          </span>
+          {console.log(project)}
+          <Link to={`/profile/${project.owner.username}`}>
+            <span>
+              Owner:{" "}
+              <b className="user-profile-link">{project.owner.username}</b>
+            </span>
+          </Link>
           <span>•</span>
           <span>
             Created: {new Date(project.createdAt).toLocaleDateString()}
