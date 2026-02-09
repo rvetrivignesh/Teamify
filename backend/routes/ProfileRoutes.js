@@ -30,9 +30,9 @@ router.post("/", protect, async (req, res) => {
 
         const profileFields = {
             user: req.user._id,
-            ...(bio && { bio }),
-            ...(skills && { skills }),
-            ...(achievements && { achievements })
+            bio,
+            skills,
+            achievements
         };
 
         let profile = await UserProfile.findOne({ user: req.user._id });
@@ -77,7 +77,7 @@ router.get("/u/:username", protect, async (req, res) => {
         res.json(profile);
     } catch (error) {
         console.error(error);
-        res.status(500).json({ message: "Server Error" });
+        res.status(500).json({ message: "Server Error", error: error.message });
     }
 });
 

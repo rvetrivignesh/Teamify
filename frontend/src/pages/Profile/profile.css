@@ -57,16 +57,16 @@
 
 .input-group {
     display: flex;
+    align-items: center;
     gap: 0.5rem;
 }
 
 .add-btn {
+    height: 100%;
     padding: 0.75rem 1.5rem;
     background-color: var(--button-bg);
-    /* Use global button variable */
     color: var(--button-text);
     border: 1px solid transparent;
-    /* Prepare for potential borders */
     border-radius: 8px;
     cursor: pointer;
     font-weight: 600;

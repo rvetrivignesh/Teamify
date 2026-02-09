@@ -76,7 +76,8 @@ const SetupProfile = () => {
       // Optionally redirect or stay
     } catch (error) {
       console.error("Error saving profile:", error);
-      setMessage({ type: "error", text: "Failed to update profile." });
+      const errorMsg = error.response?.data?.error || error.response?.data?.message || "Failed to update profile.";
+      setMessage({ type: "error", text: errorMsg });
     }
   };
 
@@ -100,6 +101,7 @@ const SetupProfile = () => {
               onChange={handleChange}
               placeholder="Tell us about yourself"
               rows="4"
+              maxLength={300}
             />
           </div>
 
@@ -111,7 +113,7 @@ const SetupProfile = () => {
                 type="text"
                 value={skillInput}
                 onChange={(e) => setSkillInput(e.target.value)}
-                maxLength={15}
+                maxLength={25}
                 placeholder="Enter a skill"
                 onKeyDown={(e) =>
                   e.key === "Enter" &&
@@ -153,7 +155,7 @@ const SetupProfile = () => {
                 type="text"
                 value={achievementInput}
                 onChange={(e) => setAchievementInput(e.target.value)}
-                maxLength={40}
+                maxLength={50}
                 placeholder="Enter an achievement"
                 onKeyDown={(e) =>
                   e.key === "Enter" &&
