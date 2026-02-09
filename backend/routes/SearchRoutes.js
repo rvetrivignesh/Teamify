@@ -15,16 +15,17 @@ router.get("/", protect, async (req, res) => {
     try {
         const regex = new RegExp(q, "i"); // Case-insensitive regex
 
-        const [projects, users] = await Promise.all([
+        const [projects, users, domains] = await Promise.all([
             Project.find({
-                $or: [{ name: regex }, { description: regex }, { skillsRequired: regex }],
+                $or: [{ name: regex }, { description: regex }, { skillsRequired: regex }, { domain: regex }],
             }).populate("owner", "username"),
             User.find({
                 $or: [{ username: regex }, { email: regex }],
-            }).select("-password")
+            }).select("-password"),
+            Project.distinct("domain", { domain: regex })
         ]);
 
-        return res.json({ projects, users });
+        return res.json({ projects, users, domains });
 
     } catch (error) {
         console.error("Search Error:", error);
