@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 import api from "../../services/api";
 import PageLoader from "../../components/PageLoader/PageLoader.jsx";
 import "./Profile.css";
@@ -7,6 +7,7 @@ import "./Profile.css";
 const UserProfile = () => {
   const { username } = useParams();
   const [profile, setProfile] = useState(null);
+  const [projects, setProjects] = useState([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -14,6 +15,12 @@ const UserProfile = () => {
       try {
         const { data } = await api.get(`/api/profile/u/${username}`);
         setProfile(data);
+        if (data.user && data.user._id) {
+          const projectsRes = await api.get(
+            `/api/projects/user/${data.user._id}`,
+          );
+          setProjects(projectsRes.data);
+        }
       } catch (error) {
         console.error(error);
       } finally {
@@ -56,6 +63,29 @@ const UserProfile = () => {
               </li>
             ))}
           </ul>
+        </div>
+
+        <div className="profile-section">
+          <h4 className="profile-section-title">Projects</h4>
+          {projects.length > 0 ? (
+            <div className="project-grid">
+              {projects.map((project) => (
+                <Link
+                  to={`/projects/${project._id}`}
+                  className="project-title-link"
+                >
+                  <div key={project._id} className="project-card-small">
+                    {project.name}
+                    <p className="project-description-tiny">
+                      {project.description.substring(0, 60)}...
+                    </p>
+                  </div>
+                </Link>
+              ))}
+            </div>
+          ) : (
+            <p className="text-muted">No projects created.</p>
+          )}
         </div>
 
         <a href={`mailto:${profile.user.email}`} className="btn btn-primary">
