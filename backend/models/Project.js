@@ -7,8 +7,13 @@ const taskSchema = new mongoose.Schema({
     },
     status: {
         type: String,
-        enum: ["Pending", "Completed"],
+        enum: ["Pending", "Doing", "Review", "Done"],
         default: "Pending",
+    },
+    assignedTo: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "User",
+        default: null,
     },
 });
 
