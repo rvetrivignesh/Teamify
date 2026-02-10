@@ -91,6 +91,18 @@ router.get("/my-projects", protect, async (req, res) => {
     }
 });
 
+// Get projects by specific user ID
+router.get("/user/:userId", protect, async (req, res) => {
+    try {
+        const projects = await Project.find({ owner: req.params.userId })
+            .populate("owner", "username email")
+            .sort({ createdAt: -1 });
+        res.json(projects);
+    } catch (error) {
+        res.status(500).json({ message: "Server Error" });
+    }
+});
+
 // Get single project
 router.get("/:id", protect, async (req, res) => {
     try {
