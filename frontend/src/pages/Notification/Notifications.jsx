@@ -34,11 +34,12 @@ const Notifications = () => {
   };
 
   const handleNotificationClick = (notif) => {
+    if (!notif.isRead) markAsRead(notif._id);
+
     if (notif.type === "request") {
-      if (!notif.isRead) markAsRead(notif._id);
       navigate(`/requests/${notif.relatedId}`);
-    } else {
-      if (!notif.isRead) markAsRead(notif._id);
+    } else if ((notif.type === "task_review" || notif.type === "info") && notif.relatedId) {
+      navigate(`/projects/${notif.relatedId}`);
     }
   };
 
