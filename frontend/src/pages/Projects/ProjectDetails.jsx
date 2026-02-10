@@ -3,6 +3,7 @@ import { useParams, Link, useNavigate } from "react-router-dom";
 import api from "../../services/api";
 import { useAuth } from "../../context/AuthContext";
 import PageLoader from "../../components/PageLoader/PageLoader.jsx";
+import KanbanBoard from "./KanbanBoard.jsx";
 import "./projects.css";
 
 const ProjectDetails = () => {
@@ -172,35 +173,17 @@ const ProjectDetails = () => {
         )}
       </div>
 
-      <div className="project-grid">
-        <div className="card">
-          <h3 className="project-section-title">Tasks</h3>
-          {project.tasks.length > 0 ? (
-            <ul className="project-tasks-list">
-              {project.tasks.map((task) => (
-                <li
-                  key={task._id}
-                  className={`project-task-item ${task.status === "Completed" ? "completed" : ""}`}
-                >
-                  {task.title}{" "}
-                  <span className="project-task-status">({task.status})</span>
-                </li>
-              ))}
-            </ul>
-          ) : (
-            <p className="project-no-tasks">No tasks outlined yet.</p>
-          )}
-        </div>
-
-        <div className="card">
-          <h3 className="project-section-title">Collaborators</h3>
-          {project.collaborators.length > 0 ? (
-            <div className="project-collaborators-list">
-              {project.collaborators.map((collab) => (
+      <div className="card project-collaborators-card">
+        <h3 className="project-section-title">Collaborators</h3>
+        {project.collaborators.length > 0 ? (
+          <div className="project-collaborators-list">
+            {project.collaborators.map((collab) => {
+              if (!collab || !collab.username) return null;
+              return (
                 <div key={collab._id} className="project-collaborator-item">
                   <div className="project-collaborator-info">
                     <div className="project-collaborator-avatar">
-                      {collab.username[0].toUpperCase()}
+                      {collab.username?.[0]?.toUpperCase() || "?"}
                     </div>
                     <Link
                       to={`/profile/${collab._id}`}
@@ -218,41 +201,69 @@ const ProjectDetails = () => {
                     </button>
                   )}
                 </div>
-              ))}
-            </div>
-          ) : (
-            <p className="project-no-collaborators">No collaborators yet.</p>
-          )}
+              );
+            })}
+          </div>
+        ) : (
+          <p className="project-no-collaborators">No collaborators yet.</p>
+        )}
 
-          {canJoin && (
-            <div className="project-join-section">
-              <h4 className="project-join-title">Interested in joining?</h4>
-              {requestStatus === "success" ? (
-                <div className="project-join-success">
-                  Request sent successfully!
-                </div>
-              ) : (
-                <form onSubmit={handleJoinRequest}>
-                  <textarea
-                    className="input-field project-join-form-textarea"
-                    rows="3"
-                    placeholder="Tell the owner why you're a good fit..."
-                    value={joinMessage}
-                    onChange={(e) => setJoinMessage(e.target.value)}
-                    required
-                  />
-                  <button
-                    type="submit"
-                    className="btn btn-primary project-join-submit"
-                    disabled={sendingRequest}
-                  >
-                    {sendingRequest ? "Sending..." : "Send Request"}
-                  </button>
-                </form>
-              )}
-            </div>
-          )}
-        </div>
+        {canJoin && (
+          <div className="project-join-section">
+            <h4 className="project-join-title">Interested in joining?</h4>
+            {requestStatus === "success" ? (
+              <div className="project-join-success">
+                Request sent successfully!
+              </div>
+            ) : (
+              <form onSubmit={handleJoinRequest}>
+                <textarea
+                  className="input-field project-join-form-textarea"
+                  rows="3"
+                  placeholder="Tell the owner why you're a good fit..."
+                  value={joinMessage}
+                  onChange={(e) => setJoinMessage(e.target.value)}
+                  required
+                />
+                <button
+                  type="submit"
+                  className="btn btn-primary project-join-submit"
+                  disabled={sendingRequest}
+                >
+                  {sendingRequest ? "Sending..." : "Send Request"}
+                </button>
+              </form>
+            )}
+          </div>
+        )}
+      </div>
+
+
+      <div className="card project-tasks-card">
+        <h3 className="project-section-title">Tasks</h3>
+        {(isOwner || isCollaborator) ? (
+          <KanbanBoard
+            project={project}
+            currentUser={user}
+            onProjectUpdate={setProject}
+          />
+        ) : (
+          project.tasks.length > 0 ? (
+            <ul className="project-tasks-list">
+              {project.tasks.map((task) => (
+                <li
+                  key={task._id}
+                  className={`project-task-item ${task.status === "Completed" || task.status === "Done" ? "completed" : ""}`}
+                >
+                  {task.title}{" "}
+                  <span className="project-task-status">({task.status})</span>
+                </li>
+              ))}
+            </ul>
+          ) : (
+            <p className="project-no-tasks">No tasks outlined yet.</p>
+          )
+        )}
       </div>
     </div>
   );

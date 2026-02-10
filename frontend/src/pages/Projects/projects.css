@@ -111,8 +111,189 @@
     margin-bottom: 24px;
 }
 
-.project-header-card {
-    margin-bottom: 32px;
+/* Kanban Board */
+.kanban-board {
+    display: flex;
+    gap: 1.5rem;
+    overflow-x: auto;
+    padding-bottom: 24px;
+    align-items: flex-start;
+}
+
+.kanban-column {
+    flex: 1;
+    min-width: 300px;
+    background-color: var(--bg-secondary);
+    border-radius: 12px;
+    padding: 1rem;
+    border: 1px solid var(--border-color);
+}
+
+.kanban-header {
+    margin-bottom: 1rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid var(--border-color);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.kanban-title {
+    font-size: 1.1rem;
+    font-weight: 600;
+}
+
+.kanban-count {
+    background-color: var(--bg-primary);
+    padding: 2px 8px;
+    border-radius: 12px;
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+}
+
+.kanban-tasks {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    min-height: 100px;
+}
+
+.kanban-task-card {
+    background-color: var(--card-bg);
+    /* Use card bg or slightly lighter */
+    padding: 1rem;
+    border-radius: 8px;
+    border: 1px solid var(--border-color);
+    box-shadow: var(--shadow-sm);
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.kanban-task-card:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+}
+
+.task-card-title {
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    font-size: 1rem;
+    color: var(--text-primary);
+}
+
+.task-card-assignee {
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    margin-bottom: 0.75rem;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.assignee-avatar-small {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background-color: var(--bg-secondary);
+    color: var(--text-primary);
+    font-size: 0.7rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.kanban-action-btn {
+    width: 100%;
+    padding: 0.5rem;
+    font-size: 0.9rem;
+    border-radius: 6px;
+    cursor: pointer;
+    border: none;
+    transition: background-color 0.2s;
+}
+
+.btn-assign {
+    background-color: var(--bg-primary);
+    border: 1px solid var(--primary-color);
+    color: var(--primary-color);
+}
+
+.btn-assign:hover {
+    background-color: var(--primary-color);
+    color: white;
+}
+
+.btn-review {
+    background-color: #f59e0b;
+    /* Amber/Orange */
+    color: white;
+}
+
+.btn-review:hover {
+    background-color: #d97706;
+}
+
+.btn-approve {
+    background-color: #10b981;
+    /* Emerald/Green */
+    color: white;
+}
+
+.btn-approve:hover {
+    background-color: #059669;
+}
+
+.status-badge {
+    display: inline-block;
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+}
+
+.status-review {
+    background-color: rgba(245, 158, 11, 0.2);
+    color: #f59e0b;
+    margin-bottom: 0.5rem;
+}
+
+.kanban-review-actions {
+    display: flex;
+    gap: 8px;
+    margin-top: 8px;
+}
+
+.kanban-review-actions button {
+    flex: 1;
+}
+
+@media (max-width: 900px) {
+    .kanban-board {
+        flex-direction: column;
+        overflow-x: hidden;
+    }
+
+    .kanban-column {
+        width: 100%;
+        min-width: 0;
+    }
+}
+
+.btn-remove-task {
+    background-color: var(--bg-primary);
+    border: 1px solid #ef4444;
+    color: #ef4444;
+    margin-top: 0.5rem;
+}
+
+.btn-remove-task:hover {
+    background-color: #ef4444;
+    color: white;
+}
+
+.project-header-card,
+.project-collaborators-card {
+    margin-bottom: 24px;
 }
 
 .project-main-title {
