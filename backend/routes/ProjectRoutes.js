@@ -377,6 +377,7 @@ router.post("/:id/tasks/:taskId/approve", protect, async (req, res) => {
 // Reject task (Owner only)
 router.post("/:id/tasks/:taskId/reject", protect, async (req, res) => {
     try {
+        const { reason } = req.body;
         const project = await Project.findById(req.params.id);
         if (!project) return res.status(404).json({ message: "Project not found" });
 
@@ -387,11 +388,8 @@ router.post("/:id/tasks/:taskId/reject", protect, async (req, res) => {
         const task = project.tasks.id(req.params.taskId);
         if (!task) return res.status(404).json({ message: "Task not found" });
 
-        // Change status back to Doing (or Pending based on preference)
-        // Here we revert to Doing so the user can fix it
+        // Change status back to Doing
         task.status = "Doing";
-
-        // Optional: add a reason or comment field later
 
         await project.save();
 
@@ -400,7 +398,8 @@ router.post("/:id/tasks/:taskId/reject", protect, async (req, res) => {
             await Notification.create({
                 recipient: task.assignedTo,
                 message: `Your task "${task.title}" in "${project.name}" requires more work. Status set to Doing.`,
-                type: "info",
+                reason: reason || "No reason provided",
+                type: "task_rejected",
                 relatedId: project._id,
             });
         }
