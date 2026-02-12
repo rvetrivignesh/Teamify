@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import api from "../../services/api";
 import PageLoader from "../../components/PageLoader/PageLoader.jsx";
+import "../Collaboration/collaboration.css";
 
 const Notifications = () => {
   const [notifications, setNotifications] = useState([]);
@@ -38,7 +39,7 @@ const Notifications = () => {
 
     if (notif.type === "request") {
       navigate(`/requests/${notif.relatedId}`);
-    } else if ((notif.type === "task_review" || notif.type === "info") && notif.relatedId) {
+    } else if ((notif.type === "task_review" || notif.type === "info" || notif.type === "task_rejected") && notif.relatedId) {
       navigate(`/projects/${notif.relatedId}`);
     }
   };
@@ -56,31 +57,68 @@ const Notifications = () => {
       ) : (
         <div className="stack-col">
           {notifications.map((notif) => (
-            <div
-              key={notif._id}
-              className={`card notif-item ${notif.isRead ? "read" : "unread"}`}
-              onClick={() => handleNotificationClick(notif)}
-            >
-              <div>
-                <p className="notif-msg">
-                  {notif.message}
-                </p>
-                <span className="small text-muted">
-                  {new Date(notif.createdAt).toLocaleString()}
-                </span>
+            notif.type === "task_rejected" ? (
+              <div
+                key={notif._id}
+                className={`card received-request-card ${notif.isRead ? "read" : "unread"}`}
+                onClick={() => handleNotificationClick(notif)}
+                style={{ borderLeft: "4px solid #ef4444" }}
+              >
+                <div>
+                  <p className="request-title" style={{ color: "#ef4444", fontWeight: "bold" }}>
+                    Task Rejected
+                  </p>
+                  <p className="notif-msg" style={{ marginBottom: "8px" }}>
+                    {notif.message}
+                  </p>
+                  {notif.reason && (
+                    <p className="request-message" style={{ background: "var(--bg-secondary)", padding: "8px", borderRadius: "4px" }}>
+                      Reason: "{notif.reason}"
+                    </p>
+                  )}
+                  <span className="small text-muted">
+                    {new Date(notif.createdAt).toLocaleString()}
+                  </span>
+                </div>
+                {!notif.isRead && (
+                  <button
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      markAsRead(notif._id);
+                    }}
+                    className="btn btn-sm btn-secondary"
+                  >
+                    Mark as read
+                  </button>
+                )}
               </div>
-              {!notif.isRead && (
-                <button
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    markAsRead(notif._id);
-                  }}
-                  className="btn btn-sm btn-secondary"
-                >
-                  Mark as read
-                </button>
-              )}
-            </div>
+            ) : (
+              <div
+                key={notif._id}
+                className={`card notif-item ${notif.isRead ? "read" : "unread"}`}
+                onClick={() => handleNotificationClick(notif)}
+              >
+                <div>
+                  <p className="notif-msg">
+                    {notif.message}
+                  </p>
+                  <span className="small text-muted">
+                    {new Date(notif.createdAt).toLocaleString()}
+                  </span>
+                </div>
+                {!notif.isRead && (
+                  <button
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      markAsRead(notif._id);
+                    }}
+                    className="btn btn-sm btn-secondary"
+                  >
+                    Mark as read
+                  </button>
+                )}
+              </div>
+            )
           ))}
         </div>
       )}
