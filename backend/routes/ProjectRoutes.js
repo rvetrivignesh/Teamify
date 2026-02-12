@@ -91,6 +91,39 @@ router.get("/my-projects", protect, async (req, res) => {
     }
 });
 
+// Get user contributions (projects where user solved tasks)
+router.get("/user/:userId/contributions", protect, async (req, res) => {
+    try {
+        const userId = req.params.userId;
+        // Find projects where user has at least one Done task
+        const projects = await Project.find({
+            "tasks": {
+                $elemMatch: {
+                    assignedTo: userId,
+                    status: "Done"
+                }
+            }
+        }).select("name tasks");
+
+        const contributions = projects.map(project => {
+            const solvedCount = project.tasks.filter(t =>
+                t.assignedTo?.toString() === userId && t.status === "Done"
+            ).length;
+
+            return {
+                _id: project._id,
+                name: project.name,
+                solvedCount
+            };
+        });
+
+        res.json(contributions);
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: "Server Error" });
+    }
+});
+
 // Get projects by specific user ID
 router.get("/user/:userId", protect, async (req, res) => {
     try {
