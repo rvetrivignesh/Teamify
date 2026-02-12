@@ -11,9 +11,12 @@ const notificationSchema = new mongoose.Schema(
             type: String,
             required: true,
         },
+        reason: {
+            type: String,
+        },
         type: {
             type: String,
-            enum: ["request", "response", "info", "task_review"],
+            enum: ["request", "response", "info", "task_review", "task_rejected"],
             required: true,
         },
         relatedId: {
