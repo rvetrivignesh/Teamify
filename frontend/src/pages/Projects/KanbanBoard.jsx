@@ -93,14 +93,28 @@ const KanbanBoard = ({ project, currentUser, onProjectUpdate }) => {
     };
 
 
-    const handleReject = async (taskId) => {
+    const [rejectModalOpen, setRejectModalOpen] = useState(false);
+    const [taskToReject, setTaskToReject] = useState(null);
+    const [rejectionReason, setRejectionReason] = useState("");
+
+    const handleReject = (taskId) => {
         if (!isOwner) return;
-        setLoadingAction(taskId);
+        setTaskToReject(taskId);
+        setRejectModalOpen(true);
+    };
+
+    const confirmReject = async () => {
+        if (!taskToReject) return;
+        setLoadingAction(taskToReject);
         try {
             const { data } = await api.post(
-                `/api/projects/${project._id}/tasks/${taskId}/reject`,
+                `/api/projects/${project._id}/tasks/${taskToReject}/reject`,
+                { reason: rejectionReason }
             );
             onProjectUpdate(data);
+            setRejectModalOpen(false);
+            setRejectionReason("");
+            setTaskToReject(null);
         } catch (error) {
             alert(error.response?.data?.message || "Failed to reject task");
         } finally {
@@ -234,6 +248,43 @@ const KanbanBoard = ({ project, currentUser, onProjectUpdate }) => {
                     )}
                 </div>
             </div>
+            {rejectModalOpen && (
+                <div className="modal-overlay">
+                    <div className="modal-content">
+                        <h3 className="modal-title">Reject Task</h3>
+                        <div className="modal-body">
+                            <p style={{ marginBottom: "8px", color: "var(--text-secondary)" }}>
+                                Please provide a reason for rejecting this task.
+                            </p>
+                            <textarea
+                                className="modal-textarea"
+                                placeholder="Enter rejection reason..."
+                                value={rejectionReason}
+                                onChange={(e) => setRejectionReason(e.target.value)}
+                            />
+                        </div>
+                        <div className="modal-actions">
+                            <button
+                                className="btn btn-secondary"
+                                onClick={() => {
+                                    setRejectModalOpen(false);
+                                    setRejectionReason("");
+                                    setTaskToReject(null);
+                                }}
+                            >
+                                Cancel
+                            </button>
+                            <button
+                                className="btn btn-danger"
+                                onClick={confirmReject}
+                                disabled={!rejectionReason.trim()}
+                            >
+                                Confirm Reject
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            )}
         </div>
     );
 };
