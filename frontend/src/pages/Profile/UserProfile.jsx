@@ -8,6 +8,7 @@ const UserProfile = () => {
   const { username } = useParams();
   const [profile, setProfile] = useState(null);
   const [projects, setProjects] = useState([]);
+  const [contributions, setContributions] = useState([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -16,10 +17,12 @@ const UserProfile = () => {
         const { data } = await api.get(`/api/profile/u/${username}`);
         setProfile(data);
         if (data.user && data.user._id) {
-          const projectsRes = await api.get(
-            `/api/projects/user/${data.user._id}`,
-          );
+          const [projectsRes, contributionsRes] = await Promise.all([
+            api.get(`/api/projects/user/${data.user._id}`),
+            api.get(`/api/projects/user/${data.user._id}/contributions`),
+          ]);
           setProjects(projectsRes.data);
+          setContributions(contributionsRes.data);
         }
       } catch (error) {
         console.error(error);
@@ -63,6 +66,36 @@ const UserProfile = () => {
               </li>
             ))}
           </ul>
+        </div>
+
+        <div className="profile-section">
+          <h4 className="profile-section-title">Contributions</h4>
+          {contributions.length > 0 ? (
+            <ul className="list-no-style">
+              {contributions.map((c) => (
+                <li key={c._id} className="text-muted">
+                  <Link
+                    to={`/projects/${c._id}`}
+                    style={{
+                      color: "var(--text-primary)",
+                      fontWeight: "500",
+                      cursor: "pointer",
+                      textDecoration: "none",
+                    }}
+                  >
+                    {c.name}
+                  </Link>
+                  <span>
+                    {" "}
+                    - solved <b>{c.solvedCount}</b>{" "}
+                    {c.solvedCount === 1 ? "problem" : "problems"}
+                  </span>
+                </li>
+              ))}
+            </ul>
+          ) : (
+            <p className="text-muted">No contributions yet.</p>
+          )}
         </div>
 
         <div className="profile-section">
