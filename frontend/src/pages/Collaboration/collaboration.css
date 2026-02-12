@@ -56,6 +56,7 @@
 .request-actions {
     display: flex;
     gap: 16px;
+    margin: auto;
 }
 
 .request-action-approve {
@@ -119,7 +120,7 @@
     margin-bottom: 16px;
     display: flex;
     justify-content: space-between;
-    align-items: center;
+    align-items: start;
     gap: 16px;
     cursor: pointer;
 }
@@ -185,4 +186,11 @@
 .request-action-accept {
     background: green;
     color: white;
+}
+
+@media (max-width: 550px) {
+    .received-request-card {
+        flex-direction: column;
+        align-items: stretch;
+    }
 }

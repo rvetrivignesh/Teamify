@@ -186,7 +186,7 @@ const ProjectDetails = () => {
                       {collab.username?.[0]?.toUpperCase() || "?"}
                     </div>
                     <Link
-                      to={`/profile/${collab._id}`}
+                      to={`/profile/${collab.username}`}
                       className="project-collaborator-link"
                     >
                       {collab.username}

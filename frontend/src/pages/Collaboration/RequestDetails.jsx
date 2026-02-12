@@ -58,7 +58,7 @@ const RequestDetails = () => {
           <p className="request-from">
             From:{" "}
             <Link
-              to={`/profile/${request.sender._id}`}
+              to={`/profile/${request.sender.username}`}
               className="request-sender-link"
             >
               {request.sender.username}
