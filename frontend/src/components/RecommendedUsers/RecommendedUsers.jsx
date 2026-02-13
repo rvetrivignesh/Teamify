@@ -71,12 +71,14 @@ const RecommendedUsers = ({ users, myProjects, currentUser }) => {
               >
                 View
               </Link>
-              <button
-                className="btn btn-sm btn-primary"
-                onClick={() => handleInviteClick(profile.user)}
-              >
-                Invite
-              </button>
+              {myProjects && myProjects.length > 0 && (
+                <button
+                  className="btn btn-sm btn-primary"
+                  onClick={() => handleInviteClick(profile.user)}
+                >
+                  Invite
+                </button>
+              )}
             </div>
           </div>
         ))}
