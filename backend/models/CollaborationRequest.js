@@ -22,6 +22,11 @@ const collaborationRequestSchema = new mongoose.Schema(
             enum: ["pending", "accepted", "rejected"],
             default: "pending",
         },
+        type: {
+            type: String,
+            enum: ["join_request", "invitation"],
+            default: "join_request",
+        },
         message: {
             type: String,
             default: "",
