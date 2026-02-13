@@ -57,6 +57,27 @@ router.post("/", protect, async (req, res) => {
     }
 });
 
+// Get recommended users based on skill overlap
+router.get("/recommendations", protect, async (req, res) => {
+    try {
+        const userProfile = await UserProfile.findOne({ user: req.user._id });
+
+        if (!userProfile || !userProfile.skills || userProfile.skills.length === 0) {
+            return res.json([]);
+        }
+
+        const recommendedUsers = await UserProfile.find({
+            skills: { $in: userProfile.skills },
+            user: { $ne: req.user._id }
+        }).populate("user", "username email");
+
+        res.json(recommendedUsers);
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: "Server Error" });
+    }
+});
+
 // Get user profile by Username
 router.get("/u/:username", protect, async (req, res) => {
     try {
