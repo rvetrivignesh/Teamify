@@ -4,21 +4,41 @@ import api from "../../services/api";
 import PageLoader from "../../components/PageLoader/PageLoader.jsx";
 import ProjectSection from "../../components/ProjectSection/ProjectSection.jsx";
 import "./Dashboard.css";
+import RecommendedUsers from "../../components/RecommendedUsers/RecommendedUsers";
 
 const Dashboard = ({ user }) => {
   const [myProjects, setMyProjects] = useState([]);
   const [recommendedProjects, setRecommendedProjects] = useState([]);
+  const [recommendedUsers, setRecommendedUsers] = useState([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const [myRes, recRes] = await Promise.all([
+        const [myRes, recRes, recUserRes] = await Promise.allSettled([
           api.get("/api/projects/my-projects"),
           api.get("/api/projects/recommended"),
+          api.get("/api/profile/recommendations"),
         ]);
-        setMyProjects(myRes.data);
-        setRecommendedProjects(recRes.data);
+
+        if (myRes.status === "fulfilled") {
+          setMyProjects(myRes.value.data);
+        } else {
+          console.error("Failed to fetch my projects", myRes.reason);
+        }
+
+        if (recRes.status === "fulfilled") {
+          setRecommendedProjects(recRes.value.data);
+        } else {
+          console.error("Failed to fetch recommended projects", recRes.reason);
+        }
+
+        if (recUserRes.status === "fulfilled") {
+          setRecommendedUsers(recUserRes.value.data);
+        } else {
+          console.error("Failed to fetch recommended users", recUserRes.reason);
+        }
+
       } catch (err) {
         console.error("Error fetching dashboard data:", err);
       } finally {
@@ -57,6 +77,12 @@ const Dashboard = ({ user }) => {
         emptyLinkText="Create one now"
         user={user}
         showOwnerInfo="collaborator"
+      />
+
+      <RecommendedUsers
+        users={recommendedUsers}
+        myProjects={myProjects}
+        currentUser={user}
       />
 
       <div className="section mt-48">
