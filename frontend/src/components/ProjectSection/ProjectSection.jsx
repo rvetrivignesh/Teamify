@@ -44,14 +44,14 @@ const ProjectSection = ({
                 <div className="owner-info">
                   <span>
                     {showOwnerInfo === "collaborator" ? (
-                      (project.owner._id || project.owner) ===
-                      (user?._id || user?.id) ? (
+                      (project.owner?._id || project.owner) ===
+                        (user?._id || user?.id) ? (
                         "Owner"
                       ) : (
                         "Collaborator"
                       )
                     ) : (
-                      <>by {project.owner.username}</>
+                      <>by {project.owner?.username || "Unknown"}</>
                     )}
                   </span>
                 </div>

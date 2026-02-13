@@ -129,10 +129,10 @@ const ProjectDetails = () => {
         </div>
 
         <div className="project-meta">
-          <Link to={`/profile/${project.owner.username}`}>
+          <Link to={project.owner?.username ? `/profile/${project.owner.username}` : "#"}>
             <span>
               Owner:{" "}
-              <b className="user-profile-link">{project.owner.username}</b>
+              <b className="user-profile-link">{project.owner?.username || "Unknown"}</b>
             </span>
           </Link>
           <span>•</span>

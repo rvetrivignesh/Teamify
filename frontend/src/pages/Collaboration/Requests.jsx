@@ -78,8 +78,8 @@ const Requests = () => {
               >
                 <div>
                   <p className="request-title">
-                    <b>{req.sender.username}</b> wants to join{" "}
-                    <b>{req.project.name}</b>
+                    <b>{req.sender?.username || "Unknown User"}</b> wants to join{" "}
+                    <b>{req.project?.name || "Unknown Project"}</b>
                   </p>
                   <p className="request-message">"{req.message}"</p>
                   <p className="request-status">

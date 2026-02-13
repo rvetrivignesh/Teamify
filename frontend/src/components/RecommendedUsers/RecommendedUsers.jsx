@@ -32,7 +32,7 @@ const RecommendedUsers = ({ users, myProjects, currentUser }) => {
     <div className="section mt-48">
       <h2 className="section-title">Recommended Teammates</h2>
       <div className="recommended-users-grid">
-        {users.map((profile) => (
+        {users.filter(profile => profile.user && profile.user.username).map((profile) => (
           <div key={profile._id} className="card user-card">
             <div className="card-header-row">
               <div className="user-avatar-placeholder">
@@ -47,7 +47,7 @@ const RecommendedUsers = ({ users, myProjects, currentUser }) => {
             <p className="user-bio">
               {profile.bio
                 ? profile.bio.substring(0, 80) +
-                  (profile.bio.length > 80 ? "..." : "")
+                (profile.bio.length > 80 ? "..." : "")
                 : "No bio provided"}
             </p>
 
